@@ -1,0 +1,20 @@
+schema_version: 1
+id: quest.paper-harbor.mossy-gate
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: MossyGate.Name.txt
+  goal: MossyGate.Goal.txt
+level: 1
+quest_type: solo
+objectives:
+  - kind: inspect
+    loc_ref: MossyGate.Counter.txt
+    limit: 1
+rewards:
+  experience: 4
+  money: 1
+_source:
+  path: Demo/World/Quests/PaperHarbor/MossyGate.xdb
+  blake3: "1111111111111111111111111111111111111111111111111111111111111111"
+  extractor: sarnaut-extract@0.1.0-demo

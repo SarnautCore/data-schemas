@@ -17,6 +17,10 @@ SarnautCore is built clean-room. This project never distributes game assets or d
 - `schemas/`: JSON Schema documents that validate the game-design YAML.
 - `demo/`: a hand-authored dataset that validates against those schemas.
 
+The extractor validates generated YAML before writing when invoked with
+`--validate`. Pass `--schema-dir` explicitly or keep this repository beside the
+`tools` and private `data` repositories so the CLI can find `schemas/`.
+
 ## License
 
 AGPL-3.0. See [LICENSE](LICENSE).

@@ -1,0 +1,17 @@
+schema_version: 1
+id: spawn.paper-harbor.table.copper-sparrows
+kind: table
+zone: zone.paper-harbor
+source_type: demo.SpawnTable
+scripted: false
+entries:
+  - group: common
+    object:
+      id: mob.paper-harbor.copper-sparrow
+      href: /Demo/Creatures/CopperSparrow.xdb#mob
+    chance: 1.0
+    spawn_time: once
+_source:
+  path: Demo/Maps/PaperHarbor/SpawnTables/CopperSparrows.xdb
+  blake3: "2222222222222222222222222222222222222222222222222222222222222222"
+  extractor: sarnaut-extract@0.1.0-demo

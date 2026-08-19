@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/item.schema.json",
+  "title": "SarnautCore item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "category", "source_type", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^item\\.[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$" },
+    "category": { "$ref": "#/$defs/slug" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "resource_id": { "type": "integer", "minimum": 0 },
+    "sys_name": { "type": "string", "minLength": 1 },
+    "loc_ref": { "$ref": "#/$defs/itemLocRefs" },
+    "image_ref": { "type": "string" },
+    "visual_ref": { "type": "string" },
+    "level": { "type": "integer" },
+    "required_level": { "type": "integer" },
+    "quality": { "$ref": "#/$defs/resourceRef" },
+    "slot": { "$ref": "#/$defs/slug" },
+    "item_class": { "$ref": "#/$defs/resourceRef" },
+    "item_category": { "$ref": "#/$defs/resourceRef" },
+    "binding": { "$ref": "#/$defs/slug" },
+    "stack_limit": { "type": "integer", "minimum": 0 },
+    "vendor_price": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sell": { "type": "integer" },
+        "buy": { "type": "integer" }
+      },
+      "minProperties": 1
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["stat", "value"],
+        "properties": {
+          "stat": { "type": "string", "minLength": 1 },
+          "value": { "type": "number" }
+        }
+      }
+    },
+    "combat": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "armor": { "type": "number" },
+        "min_damage": { "type": "number" },
+        "max_damage": { "type": "number" },
+        "weapon_speed": { "type": "number" },
+        "spell_power": { "type": "number" },
+        "damage_element": { "$ref": "#/$defs/slug" },
+        "resist_divine": { "type": "number" },
+        "resist_elemental": { "type": "number" },
+        "resist_nature": { "type": "number" }
+      },
+      "minProperties": 1
+    },
+    "capacity": { "type": "integer", "minimum": 0 },
+    "spell_ref": { "type": "string" },
+    "flags": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "extra": { "type": "object", "additionalProperties": true },
+    "_source": { "$ref": "#/$defs/source" }
+  },
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "resourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["href"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$" },
+        "href": { "type": "string" }
+      }
+    },
+    "itemLocRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "bind_description": { "type": "string" }
+      },
+      "minProperties": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "blake3", "extractor"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "blake3": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "extractor": { "type": "string", "pattern": "^sarnaut-extract@[0-9]+\\.[0-9]+\\.[0-9]+" }
+      }
+    }
+  }
+}

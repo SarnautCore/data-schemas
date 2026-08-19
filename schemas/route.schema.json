@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/route.schema.json",
+  "title": "SarnautCore route",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "zone", "map", "source_type", "points", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^route(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" },
+    "zone": { "type": "string", "pattern": "^zone\\.[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "map": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "points": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["index", "position"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 0 },
+          "position": { "$ref": "#/$defs/position" },
+          "script_ref": { "type": "string" }
+        }
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to"],
+        "properties": {
+          "from": { "type": "integer", "minimum": 0 },
+          "to": { "type": "integer", "minimum": 0 },
+          "weight": { "type": "number" },
+          "movement": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "flying": { "type": "boolean" }
+        }
+      }
+    },
+    "_source": { "$ref": "#/$defs/source" }
+  },
+  "$defs": {
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "blake3", "extractor"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "blake3": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "extractor": { "type": "string", "pattern": "^sarnaut-extract@[0-9]+\\.[0-9]+\\.[0-9]+" }
+      }
+    }
+  }
+}

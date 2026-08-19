@@ -1,0 +1,16 @@
+schema_version: 1
+id: item.junk.clockwork-feather
+category: junk
+source_type: demo.ItemResource
+loc_ref:
+  name: ClockworkFeather.Name.txt
+level: 2
+quality:
+  href: /Demo/Qualities/Plain.xdb#quality
+stack_limit: 10
+vendor_price:
+  sell: 3
+_source:
+  path: Demo/Items/Junk/ClockworkFeather.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo
