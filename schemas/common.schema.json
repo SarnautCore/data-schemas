@@ -22,7 +22,7 @@
     "locKey": {
       "description": "A localization key resolved through a locale document. Keys are stable strings supplied by the source localization pack, keyed to canonical ids per ADR 0007. The pattern is deliberately permissive — it only rules out empty keys and keys starting with punctuation — because the key space belongs to the source loc packs, not to this project.",
       "type": "string",
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._/-]*$"
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._()/-]*$"
     },
     "sourceRoot": {
       "description": "Which canonical source root (ADR 0009) supplied a value: classic-server-1-1, classic-client-1-1, modern-server-7-0, modern-client-17-0, or a demo root.",

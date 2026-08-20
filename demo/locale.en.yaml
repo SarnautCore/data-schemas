@@ -8,6 +8,8 @@ entries:
     text: Brine Scale
   - key: ClockworkFeather.Name.txt
     text: Clockwork Feather
+  - key: Creatures/ClockworkSparrow.(ItemResource).Name
+    text: Clockwork Sparrow
   - key: HarborTonic.Name.txt
     text: Harbor Tonic
   - key: HarborTonic.Description.txt
