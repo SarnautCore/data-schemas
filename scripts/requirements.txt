@@ -1,0 +1,5 @@
+# Pinned so a validation result is reproducible: an unpinned validator that
+# tightens a keyword turns a green branch red with no commit in this repository.
+jsonschema==4.26.0
+referencing==0.37.0
+PyYAML==6.0.3
