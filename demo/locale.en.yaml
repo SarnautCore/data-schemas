@@ -17,7 +17,11 @@ entries:
   - key: MossyGate.Goal.txt
     text: Look over the gate at the end of the pier.
   - key: MossyGate.Counter.txt
-    text: Gate inspected
+    text: Sparrows dispersed
+  - key: MossyGate.Start.txt
+    text: Something is nesting in the gatehouse. Three somethings.
+  - key: MossyGate.Finish.txt
+    text: Quieter already. Take this.
   - key: PaperHarbor.Name.txt
     text: Paper Harbor
   - key: PaperHarbor.Description.txt

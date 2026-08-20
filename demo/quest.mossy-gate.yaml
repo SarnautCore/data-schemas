@@ -5,15 +5,43 @@ source_type: demo.QuestResource
 loc_ref:
   name: MossyGate.Name.txt
   goal: MossyGate.Goal.txt
+  start: MossyGate.Start.txt
+  finish: MossyGate.Finish.txt
 level: 1
-quest_type: solo
+required_level: 1
+quest_type: quest-type-solo
+# The copper sparrow both offers and accepts this quest. A starter that differs
+# from the finisher is the interesting case, and the demo dataset has only two
+# NPCs, so the tide crab takes the turn-in.
+starter:
+  id: mob.paper-harbor.copper-sparrow
+  href: /Demo/Creatures/CopperSparrow.xdb#mob
+finisher:
+  id: mob.paper-harbor.tide-crab
+  href: /Demo/Creatures/TideCrab.xdb#mob
 objectives:
-  - kind: inspect
+  # `quest-count-kill` is one of the three kinds mechanics/quests.md rule 5.5
+  # defines. The kind vocabulary is closed: a slug outside it is a compile
+  # error rather than a row the shard has to guess at.
+  - kind: quest-count-kill
     loc_ref: MossyGate.Counter.txt
-    limit: 1
+    limit: 3
+    internal: false
+    show_count: true
+    targets:
+      - id: mob.paper-harbor.copper-sparrow
+        href: /Demo/Creatures/CopperSparrow.xdb#mob
 rewards:
   experience: 4
   money: 1
+  mandatory_items:
+    - item:
+        id: item.consumable.harbor-tonic
+        href: /Demo/Items/Consumable/HarborTonic.xdb#item
+      count: 1
+      hidden: false
+flags:
+  can_cancel: false
 _source:
   path: Demo/World/Quests/PaperHarbor/MossyGate.xdb
   blake3: "1111111111111111111111111111111111111111111111111111111111111111"
