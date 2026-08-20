@@ -1,0 +1,46 @@
+schema_version: 1
+id: quest.paper-harbor.tonic-tithe
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: TonicTithe.Name.txt
+  goal: TonicTithe.Goal.txt
+  start: TonicTithe.Start.txt
+  finish: TonicTithe.Finish.txt
+level: 1
+required_level: 1
+quest_type: quest-type-solo
+starter:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+finisher:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+objectives:
+  # The second objective kind of mechanics/quests.md rule 5.5. Its counter is
+  # recomputed from what the character holds rather than incremented, which
+  # makes it the only kind that can regress (rule 5.5.4 and transition T10).
+  # The League warrior starts with three harbor tonics, so a fresh character
+  # accepts this quest already at two of two.
+  - kind: quest-count-item
+    loc_ref: TonicTithe.Counter.txt
+    limit: 2
+    internal: false
+    show_count: true
+    targets:
+      - id: item.consumable.harbor-tonic
+        href: /Demo/Items/Consumable/HarborTonic.xdb#item
+rewards:
+  experience: 6
+  mandatory_items:
+    - item:
+        id: item.quest-rewards.tide-token
+        href: /Demo/Items/QuestRewards/TideToken.xdb#item
+      count: 1
+      hidden: false
+flags:
+  can_cancel: true
+_source:
+  path: Demo/World/Quests/PaperHarbor/TonicTithe.xdb
+  blake3: "a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5"
+  extractor: sarnaut-extract@0.1.0-demo

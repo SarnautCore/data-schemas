@@ -1,0 +1,46 @@
+schema_version: 1
+id: mob.paper-harbor.harbor-quartermaster
+kind: mob
+zone: zone.paper-harbor
+source_type: demo.MobWorldResource
+loc_ref:
+  name: HarborQuartermaster.Name.txt
+  title: HarborQuartermaster.Title.txt
+visual_ref: Demo/Visuals/HarborQuartermaster.gd
+mob_kind:
+  id: mobkind.base.creature
+  href: /Demo/Mechanics/MobKindTemplates/Creature.xdb#mobkind
+# The player's own faction, which is what makes this one a quest giver rather
+# than a target: mechanics/combat.md rule 5.2.5 refuses an ability against a
+# faction that is not hostile to the caster, so nothing a player can do kills
+# the NPC holding their turn-in.
+faction:
+  id: faction.league
+  href: /Demo/Mechanics/Factions/League.xdb#faction
+quality:
+  id: mobquality.normal
+  href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+level_min: 1
+level_max: 1
+walk_speed: 0.0
+# Zero is not "very small". mechanics/combat.md rule 5.7.2 skips the aggro scan
+# entirely at zero, so this NPC never pulls and never chases, and a turn-in
+# inside TURN_IN_RANGE_M stays inside it while the player stands still.
+aggro_radius_m: 0.0
+leash_radius_m: 0.0
+quests:
+  - id: quest.paper-harbor.harbor-welcome
+    href: /Demo/World/Quests/PaperHarbor/HarborWelcome.xdb#quest
+  - id: quest.paper-harbor.tide-tally
+    href: /Demo/World/Quests/PaperHarbor/TideTally.xdb#quest
+  - id: quest.paper-harbor.deep-tally
+    href: /Demo/World/Quests/PaperHarbor/DeepTally.xdb#quest
+  - id: quest.paper-harbor.harbor-vigil
+    href: /Demo/World/Quests/PaperHarbor/HarborVigil.xdb#quest
+  - id: quest.paper-harbor.tonic-tithe
+    href: /Demo/World/Quests/PaperHarbor/TonicTithe.xdb#quest
+_source:
+  path: Demo/Creatures/HarborQuartermaster.xdb
+  blake3: "8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b8b"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

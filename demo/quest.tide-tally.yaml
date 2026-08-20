@@ -1,0 +1,52 @@
+schema_version: 1
+id: quest.paper-harbor.tide-tally
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: TideTally.Name.txt
+  goal: TideTally.Goal.txt
+  start: TideTally.Start.txt
+  finish: TideTally.Finish.txt
+level: 1
+required_level: 1
+quest_type: quest-type-solo
+starter:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+finisher:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+objectives:
+  # One kill, not three: this is the quest the M2 slice driver plays end to
+  # end, and the driver kills the tide crab once. The three-kill case lives on
+  # quest.paper-harbor.mossy-gate, which nothing has to walk through.
+  - kind: quest-count-kill
+    loc_ref: TideTally.Counter.txt
+    limit: 1
+    internal: false
+    show_count: true
+    targets:
+      - id: mob.paper-harbor.tide-crab
+        href: /Demo/Creatures/TideCrab.xdb#mob
+rewards:
+  experience: 8
+  money: 2
+  # Two distinct items of stack_limit 1, which is what mechanics/quests.md rule
+  # 6.2's net-slot arithmetic needs to have a non-zero answer.
+  mandatory_items:
+    - item:
+        id: item.junk.brine-scale
+        href: /Demo/Items/Junk/BrineScale.xdb#item
+      count: 1
+      hidden: false
+    - item:
+        id: item.quest-rewards.tide-token
+        href: /Demo/Items/QuestRewards/TideToken.xdb#item
+      count: 1
+      hidden: false
+flags:
+  can_cancel: true
+_source:
+  path: Demo/World/Quests/PaperHarbor/TideTally.xdb
+  blake3: "a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2"
+  extractor: sarnaut-extract@0.1.0-demo

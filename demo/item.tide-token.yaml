@@ -1,0 +1,21 @@
+schema_version: 1
+id: item.quest-rewards.tide-token
+category: quest-reward
+source_type: demo.ItemResource
+loc_ref:
+  name: TideToken.Name.txt
+level: 1
+quality:
+  href: /Demo/Qualities/Plain.xdb#quality
+# The second unstackable reward item. mechanics/quests.md rule 6.2 does its
+# net-slot arithmetic over two distinct rewards of stack_limit 1, and with one
+# such item in the dataset the arithmetic has only one term and the bag-full
+# path of rule 5.7.3 is unreachable.
+stack_limit: 1
+vendor_price:
+  sell: 1
+_source:
+  path: Demo/Items/QuestRewards/TideToken.xdb
+  blake3: "7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

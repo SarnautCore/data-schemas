@@ -1,0 +1,31 @@
+schema_version: 1
+id: spawn.paper-harbor.placements.quest-green
+kind: placements
+zone: zone.paper-harbor
+map: paper-harbor
+source_type: demo.MapPlacements
+placements:
+  # The quest giver stands three metres from where the M2 slice driver's
+  # character materializes, which is six metres from the tide crab
+  # (mechanics/combat.md section 6.1's scenario distance). Three is inside
+  # mechanics/quests.md TURN_IN_RANGE_M of 5 and six is outside it, so one
+  # fixture supports both the accepted turn-in and the out-of-range refusal
+  # without anything having to walk.
+  - id: placement.paper-harbor.quartermaster-1
+    object:
+      id: mob.paper-harbor.harbor-quartermaster
+      href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+    position:
+      x: 9.0
+      y: -40.0
+      z: 0.0
+    orientation:
+      yaw: 180.0
+      pitch: 0.0
+      roll: 0.0
+    spawn_time: once
+_source:
+  path: Demo/Maps/PaperHarbor/Placements/QuestGreen.xdb
+  blake3: "9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server
