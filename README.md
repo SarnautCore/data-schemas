@@ -55,6 +55,20 @@ That is an identifier namespace, not a website: nothing fetches it.
 | `locale.schema.json` | `locale.*` | no |
 | `chargen.schema.json` | `chargen.*` | no |
 | `ability.schema.json` | `ability.*` | no |
+| `level-curve.schema.json` | `levelcurve.*` | no |
+
+`level-curve.schema.json` is the one schema here whose documents are authored
+rather than extracted, and it is written the other way round to match:
+`curation_note` is required and `_source` is optional. `mechanics/combat.md`
+section 7.1 searched the reference tree for the per-level base HP/DPS the
+`MobKind` multipliers scale and established that it is not there, which makes
+the curve a curated SarnautCore constant.
+
+Every other schema now accepts an optional `curation_note`. ADR 0029 makes a
+non-empty note **mandatory** on overlay documents and a missing one a compile
+error; the schema cannot tell an overlay document from a base one, so it allows
+the field everywhere and `sarnaut-pack` enforces the requirement where it
+applies.
 
 `ability.schema.json` is deliberately minimal. It exists because
 [ADR 0032](https://github.com/SarnautCore/docs/blob/main/adr/0032-character-creation.md)

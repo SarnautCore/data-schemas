@@ -1,5 +1,10 @@
 schema_version: 1
 id: mob.paper-harbor.reef-lurker
+curation_note: >-
+  Invented for the overlay exhibit, not extracted. Level, aggro radius and
+  leash radius differ from every mob in the base dataset, so the combat suite
+  can run its assertions over this pack unchanged and still be testing
+  content rather than constants.
 kind: mob
 zone: zone.paper-harbor
 source_type: demo.MobWorldResource

@@ -1,5 +1,10 @@
 schema_version: 1
 id: ability.magic.brine-bolt
+curation_note: >-
+  Invented for the overlay exhibit, not extracted. Its range, cooldown and
+  damage coefficient are all deliberately unequal to the base ability's so
+  that a shard which pinned any of them to a Go constant fails when this
+  layer is applied.
 source_type: demo.SpellResource
 loc_ref:
   name: BrineBolt.Name.txt

@@ -1,5 +1,8 @@
 schema_version: 1
 id: mobkind.base.reef
+curation_note: >-
+  Invented for the overlay exhibit, not extracted. hp_mod 1.5 puts the reef
+  lurker's health outside the range any base-dataset mob produces.
 kind: mobkind
 source_type: demo.MobKindTemplate
 loc_ref:

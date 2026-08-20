@@ -23,6 +23,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = REPO_ROOT / "schemas"
 DEMO_DIR = REPO_ROOT / "demo"
 NEGATIVE_DIR = DEMO_DIR / "negative"
+# The overlay layer manifest of ADR 0029. Build configuration, not content.
+LAYERS_FILE_NAME = "layers.yaml"
 
 META_SCHEMA_URI = "https://json-schema.org/draft/2020-12/schema"
 ID_NAMESPACE = "https://schemas.sarnautcore.org/"
@@ -40,6 +42,7 @@ SCHEMA_BY_ID_PREFIX: dict[str, str] = {
     "chargen": "chargen",
     "faction": "faction",
     "item": "item",
+    "levelcurve": "level-curve",
     "locale": "locale",
     "loot": "loot-table",
     "mob": "spawn",
@@ -129,11 +132,16 @@ def demo_documents() -> list[Document]:
 
     The negative fixtures live under ``demo/negative/`` and are excluded here;
     they are exercised by ``check_negative.py``.
+
+    ``demo/overlays/layers.yaml`` is excluded too. It is the layer manifest
+    ADR 0029 gives the pack compiler, not a content document: it has no id and
+    no schema, and it is the one YAML file under ``demo/`` that is build
+    configuration rather than content.
     """
     paths = sorted(
         path
         for path in DEMO_DIR.rglob("*.yaml")
-        if NEGATIVE_DIR not in path.parents
+        if NEGATIVE_DIR not in path.parents and path.name != LAYERS_FILE_NAME
     )
     return [load_yaml(path) for path in paths]
 

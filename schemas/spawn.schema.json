@@ -59,6 +59,7 @@
               }
             },
             "extra": { "type": "object", "additionalProperties": true },
+            "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
             "_source": true
           }
         }
@@ -109,6 +110,7 @@
             "quests": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/resourceRef" } },
             "abilities": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/resourceRef" } },
             "extra": { "type": "object", "additionalProperties": true },
+            "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
             "_source": true
           }
         }
@@ -152,6 +154,7 @@
                 ]
               }
             },
+            "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
             "_source": true
           }
         }
