@@ -29,6 +29,11 @@
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
     },
+    "curationNote": {
+      "description": "Why a human wrote this document, or this part of it, by hand. ADR 0029 makes a non-empty note mandatory on every overlay document and a missing one a compile error, because an overlay with no stated reason is indistinguishable from an accident. Notes are stripped from compiled row bytes and never reach pack_id.",
+      "type": "string",
+      "minLength": 1
+    },
     "resourceRef": {
       "description": "A pointer at another resource. href is the source-tree path and is always present. id is present once the extractor has mapped that path to a canonical id; a ref carrying an id is an edge in the content reference graph, a ref without one is not yet mapped.",
       "type": "object",

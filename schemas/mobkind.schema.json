@@ -54,6 +54,7 @@
             "loot_mod": { "$ref": "#/$defs/modifier" },
             "speed": { "type": "number", "minimum": 0 },
             "extra": { "type": "object", "additionalProperties": true },
+            "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
             "_source": {
               "allOf": [
                 { "$ref": "common.schema.json#/$defs/source" },
@@ -87,6 +88,7 @@
               }
             },
             "extra": { "type": "object", "additionalProperties": true },
+            "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
             "_source": true
           }
         }
@@ -119,6 +121,7 @@
             "dps_mod": { "$ref": "#/$defs/modifier" },
             "exp_mod": { "$ref": "#/$defs/modifier" },
             "extra": { "type": "object", "additionalProperties": true },
+            "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
             "_source": true
           }
         }

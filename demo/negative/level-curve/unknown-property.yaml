@@ -1,0 +1,9 @@
+# Rejected: unexpected_field is not declared, and additionalProperties is false.
+schema_version: 1
+id: levelcurve.demo.negative-fixture
+curation_note: Negative fixture.
+ruleset: classic
+points:
+  - level: 1
+    base_hp: 100
+unexpected_field: true

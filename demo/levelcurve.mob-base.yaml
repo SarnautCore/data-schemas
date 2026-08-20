@@ -1,0 +1,34 @@
+schema_version: 1
+id: levelcurve.demo.mob-base
+curation_note: >-
+  The base HP/DPS/XP a mob's MobKind multipliers scale. mechanics/combat.md
+  section 7.1 searched the reference tree for it and found nothing, so the curve
+  is a curated SarnautCore constant rather than an extracted one. The HP column
+  is HP_BASE 100 plus HP_PER_LEVEL 20 per level above 1, so section 6.1's worked
+  example — a level 2 mob with hp_mod 1.0 at 120 max HP, six casts to kill —
+  reads the same number out of this table that it used to read out of two Go
+  constants. The DPS and XP columns are invented ahead of the systems that will
+  consume them: M2 mobs do not hit back and kill experience is not credited, so
+  nothing checks them yet.
+ruleset: classic
+points:
+  - level: 1
+    base_hp: 100
+    base_dps: 5.0
+    base_experience: 2
+  - level: 2
+    base_hp: 120
+    base_dps: 7.0
+    base_experience: 4
+  - level: 3
+    base_hp: 140
+    base_dps: 9.0
+    base_experience: 6
+  - level: 4
+    base_hp: 160
+    base_dps: 11.0
+    base_experience: 8
+  - level: 5
+    base_hp: 180
+    base_dps: 13.0
+    base_experience: 10

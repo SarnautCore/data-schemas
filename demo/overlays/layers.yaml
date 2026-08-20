@@ -1,0 +1,14 @@
+# The overlay layer order for the demo dataset (ADR 0029).
+#
+# This file is the sole authority on which layers exist and in what order they
+# apply. `sarnaut-pack` never reads directory order, never sorts layer ids, and
+# never takes a precedence hint from inside a layer: a layer that is not listed
+# here does not exist as far as the compiler is concerned.
+layers:
+  # Not applied unless `--overlay m2-combat-extended` names it. The base demo
+  # dataset compiles to the golden fixture pack vendored in `server`, and a
+  # layer that switched itself on by default would silently change that pack's
+  # digest.
+  - id: m2-combat-extended
+    description: A second ability and a second mob, used to prove that adding combat content is a data change.
+    apply_by_default: false

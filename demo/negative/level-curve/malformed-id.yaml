@@ -1,0 +1,8 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: LevelCurve.Demo.NegativeFixture
+curation_note: Negative fixture.
+ruleset: classic
+points:
+  - level: 1
+    base_hp: 100

@@ -64,6 +64,7 @@
     },
     "flags": { "type": "object", "additionalProperties": { "type": "boolean" } },
     "extra": { "type": "object", "additionalProperties": true },
+    "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
     "_source": { "$ref": "common.schema.json#/$defs/source" }
   },
   "$defs": {

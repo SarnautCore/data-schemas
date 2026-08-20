@@ -1,5 +1,9 @@
 schema_version: 1
 id: spawn.paper-harbor.placements.reef-shelf
+curation_note: >-
+  Invented for the overlay exhibit, not extracted. The respawn window is
+  shorter than the base dataset's so a test can watch a slot refill without
+  waiting out combat.md's 10-14 s default.
 kind: placements
 zone: zone.paper-harbor
 map: paper-harbor
