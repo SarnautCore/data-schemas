@@ -15,7 +15,15 @@ SarnautCore is built clean-room. This project never distributes game assets or d
 ## Layout
 
 - `schemas/`: JSON Schema documents that validate the game-design YAML.
-- `demo/`: a hand-authored dataset that validates against those schemas.
+- `demo/`: a hand-authored dataset that validates against those schemas. It is
+  also the source of the golden runtime pack that `server` and `client` tests
+  share, so treat a change here as a change to those tests.
+- `proto/`: the `sarnaut.content.v1` row messages of the compiled runtime pack
+  ([ADR 0029](https://github.com/SarnautCore/docs/blob/main/adr/0029-runtime-pack-format.md)).
+  JSON Schema stays authoritative for the authored YAML; these describe the
+  compiled row shape. The pack writer in `tools` and the reader in `server` each
+  vendor a copy of this directory for a hermetic build, and those copies must
+  stay identical to it.
 
 The extractor validates generated YAML before writing when invoked with
 `--validate`. Pass `--schema-dir` explicitly or keep this repository beside the
