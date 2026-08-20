@@ -1,0 +1,37 @@
+schema_version: 1
+id: spawn.paper-harbor.placements.tide-steps
+kind: placements
+zone: zone.paper-harbor
+map: tide-steps
+source_type: demo.PatchObjects
+placements:
+  # Resolves through the copper-sparrows table.
+  - id: spawn.paper-harbor.placement.tide-steps.1
+    object:
+      id: spawn.paper-harbor.table.copper-sparrows
+      href: /Demo/Maps/PaperHarbor/SpawnTables/CopperSparrows.xdb#table
+    position: { x: 12.5, y: -4.25, z: 1.5 }
+    orientation: { yaw: 1.25, pitch: 0.0, roll: 0.0 }
+    spawn_time: once
+    scan_radius: 30.0
+  # Names a mob directly, with no table in between.
+  - id: spawn.paper-harbor.placement.tide-steps.2
+    object:
+      id: mob.paper-harbor.copper-sparrow
+      href: /Demo/Creatures/CopperSparrow.xdb#mob
+    position: { x: -3.0, y: 8.75, z: 1.5 }
+    orientation: { yaw: 0.0, pitch: 0.0, roll: 0.0 }
+    spawn_time: once
+    script_id: TideStepsGreeter
+  # Authored but switched off: readers must skip it.
+  - id: spawn.paper-harbor.placement.tide-steps.3
+    object:
+      id: mob.paper-harbor.copper-sparrow
+      href: /Demo/Creatures/CopperSparrow.xdb#mob
+    position: { x: 40.0, y: 40.0, z: 1.5 }
+    orientation: { yaw: 3.5, pitch: 0.0, roll: 0.0 }
+    spawn_time: time-never
+_source:
+  path: Demo/Maps/PaperHarbor/TideSteps/Placements.xdb
+  blake3: "3333333333333333333333333333333333333333333333333333333333333333"
+  extractor: sarnaut-extract@0.1.0-demo

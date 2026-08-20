@@ -25,7 +25,7 @@ from typing import Any, Iterator
 
 from _common import DEMO_DIR, REPO_ROOT, load_yaml
 
-ALLOWED_SUFFIXES = frozenset({".json", ".md", ".py", ".txt", ".yaml", ".yml", ""})
+ALLOWED_SUFFIXES = frozenset({".json", ".md", ".proto", ".py", ".txt", ".yaml", ".yml", ""})
 SKIPPED_DIRECTORIES = frozenset({".git", "__pycache__", ".venv"})
 DEMO_PATH_PREFIXES = ("Demo/", "/Demo/")
 

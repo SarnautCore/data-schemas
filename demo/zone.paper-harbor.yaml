@@ -6,6 +6,7 @@ loc_ref:
   description: PaperHarbor.Description.txt
 maps:
   - paper-harbor
+  - tide-steps
 player_spawn:
   map: paper-harbor
   position:
