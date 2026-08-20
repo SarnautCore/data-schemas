@@ -1,0 +1,40 @@
+schema_version: 1
+id: mob.paper-harbor.tide-crab
+kind: mob
+zone: zone.paper-harbor
+source_type: demo.MobWorldResource
+loc_ref:
+  name: TideCrab.Name.txt
+  title: TideCrab.Title.txt
+visual_ref: Demo/Visuals/TideCrab.gd
+# Deliberately the base template rather than a specialised kind: its hp_mod is
+# 1.0, which is what the worked example in mechanics/combat.md section 6.1
+# assumes when it derives 120 max HP at level 2.
+mob_kind:
+  id: mobkind.base.creature
+  href: /Demo/Mechanics/MobKindTemplates/Creature.xdb#mobkind
+faction:
+  id: faction.wild
+  href: /Demo/Mechanics/Factions/Wild.xdb#faction
+quality:
+  id: mobquality.normal
+  href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+loot_table:
+  id: loot.fixture.m2-nested
+  href: /Demo/World/LootTables/TideCrab/TideCrab(01).xdb#loottable
+level_min: 2
+level_max: 2
+walk_speed: 2.0
+aggro_radius_m: 12.0
+leash_radius_m: 40.0
+# M2 mobs do not hit back (combat.md section 1). The ability list is still
+# read: rule 5.8.3 stops a chasing mob at its own ability range so it does not
+# stand on top of its target, and that range is this.
+abilities:
+  - id: ability.melee.harbor-cleave
+    href: /Demo/Mechanics/Spells/Creatures/HarborCleave.xdb#ability
+_source:
+  path: Demo/Creatures/TideCrab.xdb
+  blake3: "6161616161616161616161616161616161616161616161616161616161616161"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

@@ -9,6 +9,16 @@
     { "$ref": "#/$defs/placements" }
   ],
   "$defs": {
+    "respawnDelay": {
+      "description": "How long after despawn the placement fills again, drawn uniformly from the window (combat.md rule 5.9.6). It lives on the placement, not on the mob: the reference tree makes respawn a property of the spawn slot, so the same creature placed twice can come back at two different rates.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "integer", "minimum": 0 },
+        "max": { "type": "integer", "minimum": 0 }
+      }
+    },
     "base": {
       "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
       "type": "object",
@@ -86,6 +96,16 @@
             "level_min": { "type": "integer" },
             "level_max": { "type": "integer" },
             "walk_speed": { "type": "number" },
+            "aggro_radius_m": {
+              "description": "Distance at which an idle mob pulls (combat.md rule 5.7.2). Per-mob rather than global because the reference tree already varies it per creature; combat.md section 7.2 records that the unit is unverified.",
+              "type": "number",
+              "minimum": 0
+            },
+            "leash_radius_m": {
+              "description": "Distance from its anchor at which a chasing mob gives up and returns (combat.md rule 5.8.2).",
+              "type": "number",
+              "minimum": 0
+            },
             "quests": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/resourceRef" } },
             "abilities": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/resourceRef" } },
             "extra": { "type": "object", "additionalProperties": true },
@@ -123,7 +143,8 @@
                   "route": { "$ref": "common.schema.json#/$defs/canonicalId" },
                   "tuner_ref": { "type": "string" },
                   "spawn_time": { "$ref": "common.schema.json#/$defs/slug" },
-                  "scan_radius": { "type": "number" }
+                  "scan_radius": { "type": "number" },
+                  "respawn_delay_ms": { "$ref": "#/$defs/respawnDelay" }
                 },
                 "anyOf": [
                   { "required": ["position"] },

@@ -1,0 +1,24 @@
+schema_version: 1
+id: spawn.paper-harbor.placements.reef-shelf
+kind: placements
+zone: zone.paper-harbor
+map: paper-harbor
+source_type: demo.MapPlacements
+placements:
+  - id: placement.paper-harbor.reef-lurker-1
+    object:
+      id: mob.paper-harbor.reef-lurker
+      href: /Demo/Creatures/ReefLurker.xdb#mob
+    position:
+      x: 0.0
+      y: 40.0
+      z: 0.0
+    spawn_time: once
+    respawn_delay_ms:
+      min: 4000
+      max: 6000
+_source:
+  path: Demo/Maps/PaperHarbor/Placements/ReefShelf.xdb
+  blake3: "0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

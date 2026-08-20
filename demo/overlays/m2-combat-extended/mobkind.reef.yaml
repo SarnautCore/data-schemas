@@ -1,0 +1,25 @@
+schema_version: 1
+id: mobkind.base.reef
+kind: mobkind
+source_type: demo.MobKindTemplate
+loc_ref:
+  name: ReefKind.Name.txt
+mob_class:
+  id: mobclass.beast
+  href: /Demo/Mechanics/MobClasses/Beast.xdb#mobclass
+quality:
+  id: mobquality.normal
+  href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+hp_mod: 1.5
+dps_mod: 1.0
+exp_mod: 1.2
+mana_mod: 1.0
+loot_mod: 1.0
+speed: 1.75
+_source:
+  path: Demo/Mechanics/MobKindTemplates/Reef.xdb
+  blake3: "0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server
+  prototype_chain:
+    - mobkind.base.reef

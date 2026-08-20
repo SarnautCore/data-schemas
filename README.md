@@ -24,6 +24,10 @@ not point into `Demo/`.
   `server` and `client` tests share, so treat a change here as a change to those
   tests.
 - `demo/negative/`: fixtures that must be **rejected**, one directory per schema.
+- `demo/overlays/`: extra documents that layer over the base demo set with
+  `sarnaut-pack build --overlay`. They validate against the same schemas and
+  join the same reference graph, because an overlay only the pack compiler ever
+  reads is an unvalidated corner of the fixture set.
 - `proto/`: the `sarnaut.content.v1` row messages of the compiled runtime pack
   ([ADR 0029](https://github.com/SarnautCore/docs/blob/main/adr/0029-runtime-pack-format.md)).
   JSON Schema stays authoritative for the authored YAML; these describe the
