@@ -1,0 +1,35 @@
+schema_version: 1
+id: mob.paper-harbor.copper-sparrow
+kind: mob
+zone: zone.paper-harbor
+source_type: demo.MobWorldResource
+loc_ref:
+  name: CopperSparrow.Name.txt
+  title: CopperSparrow.Title.txt
+visual_ref: Demo/Visuals/CopperSparrow.gd
+mob_kind:
+  id: mobkind.beast.sparrow
+  href: /Demo/Mechanics/MobKinds/Sparrow.xdb#mobkind
+faction:
+  id: faction.wild
+  href: /Demo/Mechanics/Factions/Wild.xdb#faction
+quality:
+  id: mobquality.normal
+  href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+loot_table:
+  id: loot.fixture.m2-nested
+  href: /Demo/World/LootTables/CopperSparrow/CopperSparrow(01).xdb#loottable
+level_min: 2
+level_max: 2
+walk_speed: 2.0
+quests:
+  - id: quest.paper-harbor.mossy-gate
+    href: /Demo/World/Quests/PaperHarbor/MossyGate.xdb#quest
+abilities:
+  - id: ability.melee.harbor-cleave
+    href: /Demo/Mechanics/Spells/Creatures/HarborCleave.xdb#ability
+_source:
+  path: Demo/Creatures/CopperSparrow.xdb
+  blake3: "4444444444444444444444444444444444444444444444444444444444444444"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

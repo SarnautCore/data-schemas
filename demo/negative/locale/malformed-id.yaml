@@ -1,0 +1,13 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: locale.EN.negative-fixture
+language: en
+source_root: demo-client
+source_type: demo.LocPack
+entries:
+  - key: Negative.Name.txt
+    text: Negative
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

@@ -1,0 +1,20 @@
+schema_version: 1
+id: item.consumable.harbor-tonic
+category: consumable
+source_type: demo.ItemResource
+loc_ref:
+  name: HarborTonic.Name.txt
+  description: HarborTonic.Description.txt
+level: 2
+required_level: 1
+quality:
+  href: /Demo/Qualities/Plain.xdb#quality
+stack_limit: 20
+vendor_price:
+  sell: 4
+  buy: 16
+_source:
+  path: Demo/Items/Consumable/HarborTonic.xdb
+  blake3: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

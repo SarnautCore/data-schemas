@@ -1,0 +1,15 @@
+schema_version: 1
+id: mobquality.normal
+kind: mobquality
+rank: 0
+source_type: demo.MobQuality
+loc_ref:
+  name: NormalQuality.Name.txt
+hp_mod: 1.0
+dps_mod: 1.0
+exp_mod: 1.0
+_source:
+  path: Demo/Mechanics/MobQualities/Normal.xdb
+  blake3: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

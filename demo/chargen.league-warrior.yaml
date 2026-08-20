@@ -1,0 +1,41 @@
+schema_version: 1
+id: chargen.league.warrior
+source_type: demo.ChargenOption
+race: race.human
+class: class.warrior
+sex: female
+faction: faction.league
+enabled: true
+loc_ref:
+  name: LeagueWarrior.Name.txt
+  description: LeagueWarrior.Description.txt
+visual_ref: Demo/Visuals/LeagueWarrior.gd
+spawn:
+  zone_id: zone.paper-harbor
+  position:
+    x: 12.0
+    y: 4.5
+    z: 0.0
+  heading: 90.0
+starting_level: 1
+starting_stats:
+  - stat: strength
+    value: 12
+  - stat: endurance
+    value: 10
+starting_loadout:
+  - item_id: item.consumable.harbor-tonic
+    quantity: 3
+    slot: bag
+  - item_id: item.junk.clockwork-feather
+    quantity: 1
+    slot: bag
+starting_abilities:
+  - ability.melee.harbor-cleave
+starting_quests:
+  - quest.paper-harbor.mossy-gate
+_source:
+  path: Demo/Mechanics/Chargen/LeagueWarrior.xdb
+  blake3: "1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

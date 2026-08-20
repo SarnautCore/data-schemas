@@ -1,0 +1,36 @@
+schema_version: 1
+id: spawn.paper-harbor.placements.harbor-green
+kind: placements
+zone: zone.paper-harbor
+map: paper-harbor
+source_type: demo.MapPlacements
+placements:
+  - id: placement.paper-harbor.sparrow-1
+    object:
+      id: mob.paper-harbor.copper-sparrow
+      href: /Demo/Creatures/CopperSparrow.xdb#mob
+    position:
+      x: 18.0
+      y: 6.0
+      z: 0.0
+    orientation:
+      yaw: 0.0
+      pitch: 0.0
+      roll: 0.0
+    route: route.paper-harbor.harbor-patrol
+    spawn_time: once
+    scan_radius: 12.0
+  - id: placement.paper-harbor.sparrow-2
+    object:
+      id: mob.paper-harbor.copper-sparrow
+      href: /Demo/Creatures/CopperSparrow.xdb#mob
+    position:
+      x: 30.0
+      y: -4.0
+      z: 0.0
+    spawn_time: once
+_source:
+  path: Demo/Maps/PaperHarbor/Placements/HarborGreen.xdb
+  blake3: "5555555555555555555555555555555555555555555555555555555555555555"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

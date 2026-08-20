@@ -1,0 +1,22 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: chargen.League.NegativeFixture
+source_type: demo.ChargenOption
+race: race.human
+class: class.warrior
+sex: female
+faction: faction.league
+enabled: false
+visual_ref: Demo/Visuals/Negative.gd
+spawn:
+  zone_id: zone.paper-harbor
+  position:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  heading: 0.0
+starting_level: 1
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

@@ -1,0 +1,14 @@
+# Rejected: mob kinds are global resources under /Mechanics. The zone-free
+# common base does not declare zone and additionalProperties is false, so a
+# zone field on a global document fails instead of being quietly carried.
+schema_version: 1
+id: mobkind.base.negative-fixture
+kind: mobkind
+zone: zone.paper-harbor
+source_type: demo.MobKind
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo
+  prototype_chain:
+    - mobkind.base.negative-fixture

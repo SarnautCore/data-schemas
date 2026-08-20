@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/faction.schema.json",
+  "title": "SarnautCore faction",
+  "description": "A faction and its hostility relations. Factions are global resources with no zone. Until this document type existed a mob's faction was an href pointing at nothing this project could read, so nothing declared that Wild is attackable and hostile to players while League is not (combat.md rule 5.2.5).",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_type", "attackable", "default_stance", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^faction\\.[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "resource_id": { "type": "integer", "minimum": 0 },
+    "loc_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "name": { "$ref": "common.schema.json#/$defs/locKey" },
+        "description": { "$ref": "common.schema.json#/$defs/locKey" }
+      }
+    },
+    "player_faction": {
+      "description": "True when a player character can belong to this faction.",
+      "type": "boolean"
+    },
+    "attackable": {
+      "description": "Whether members of this faction may be targeted by a hostile ability at all. A faction can be hostile and unattackable (a quest giver that will not fight) or attackable and neutral (wildlife that fights back only when struck).",
+      "type": "boolean"
+    },
+    "default_stance": {
+      "description": "The stance towards any faction with no explicit relation below. Making this required means a missing relation is a decision rather than an accident.",
+      "$ref": "#/$defs/stance"
+    },
+    "relations": {
+      "description": "Explicit stances towards named factions. Relations are directed: A hostile to B does not imply B hostile to A.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["faction", "stance"],
+        "properties": {
+          "faction": {
+            "description": "The canonical id of the other faction.",
+            "type": "string",
+            "pattern": "^faction\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "stance": { "$ref": "#/$defs/stance" }
+        }
+      }
+    },
+    "extra": { "type": "object", "additionalProperties": true },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  },
+  "$defs": {
+    "stance": {
+      "description": "hostile: may be attacked on sight and attacks on sight. neutral: neither attacks first. friendly: cannot be attacked by this faction and assists it.",
+      "enum": ["hostile", "neutral", "friendly"]
+    }
+  }
+}

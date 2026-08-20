@@ -1,0 +1,23 @@
+schema_version: 1
+id: mobkind.base.creature
+kind: mobkind
+source_type: demo.MobKindTemplate
+mob_class:
+  id: mobclass.beast
+  href: /Demo/Mechanics/MobClasses/Beast.xdb#mobclass
+quality:
+  id: mobquality.normal
+  href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+hp_mod: 1.0
+dps_mod: 1.0
+exp_mod: 1.0
+mana_mod: 1.0
+loot_mod: 1.0
+speed: 1.5
+_source:
+  path: Demo/Mechanics/MobKindTemplates/Creature.xdb
+  blake3: "7777777777777777777777777777777777777777777777777777777777777777"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server
+  prototype_chain:
+    - mobkind.base.creature

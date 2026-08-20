@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/chargen.schema.json",
+  "title": "SarnautCore character creation option",
+  "description": "One selectable character-creation option, per ADR 0032. Neither the client nor the server may hold a starting item, stat, ability or spawn coordinate in code, so every one of them is a field here. Options are global: a chargen document names the zone it spawns into but is not scoped to one. Options that are not playable yet ship with enabled:false rather than being absent, so enabling the next one is a data change CI has already been validating.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "source_type",
+    "race",
+    "class",
+    "sex",
+    "faction",
+    "enabled",
+    "visual_ref",
+    "spawn",
+    "starting_level",
+    "_source"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^chargen\\.[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "race": {
+      "description": "Canonical race id. M2 has no race document type, so this is a taxonomy token rather than a reference the cross-reference pass resolves.",
+      "type": "string",
+      "pattern": "^race\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "class": {
+      "description": "Canonical class id. As with race, M2 has no class document type.",
+      "type": "string",
+      "pattern": "^class\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "sex": {
+      "description": "The body variant this option renders with. It is a property of the option, not a customization axis: ADR 0032 section 4 gives M2 no appearance data model, and every character of an option renders identically.",
+      "enum": ["female", "male"]
+    },
+    "faction": {
+      "description": "Canonical faction id, resolved against a faction document.",
+      "type": "string",
+      "pattern": "^faction\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "enabled": {
+      "description": "Whether the client may offer this option. This is how \"one playable option in M2\" is expressed.",
+      "type": "boolean"
+    },
+    "loc_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "name": { "$ref": "common.schema.json#/$defs/locKey" },
+        "description": { "$ref": "common.schema.json#/$defs/locKey" }
+      }
+    },
+    "visual_ref": {
+      "description": "The model and material every character of this option renders with.",
+      "type": "string",
+      "minLength": 1
+    },
+    "spawn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zone_id", "position", "heading"],
+      "properties": {
+        "zone_id": { "$ref": "common.schema.json#/$defs/zoneId" },
+        "position": { "$ref": "common.schema.json#/$defs/position" },
+        "heading": { "type": "number" }
+      }
+    },
+    "starting_level": { "type": "integer", "minimum": 1 },
+    "starting_stats": {
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/statEntry" }
+    },
+    "starting_loadout": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item_id", "quantity", "slot"],
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "pattern": "^item\\.[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$"
+          },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "slot": {
+            "description": "An equipment slot, or bag for anything not equipped at first spawn.",
+            "$ref": "common.schema.json#/$defs/slug"
+          }
+        }
+      }
+    },
+    "starting_abilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^ability(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$"
+      }
+    },
+    "starting_quests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^quest(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$"
+      }
+    },
+    "extra": { "type": "object", "additionalProperties": true },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  }
+}

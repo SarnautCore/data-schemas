@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/loot-table.schema.json",
+  "title": "SarnautCore loot table",
+  "description": "A loot table: one tree with exactly one root node, made of and / or / single-item / money nodes. Loot tables are global resources under /World/LootTables and carry no zone. Evaluation semantics are specified in docs/specs/mechanics/loot.md; this schema fixes the authored shape only.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_type", "root", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^loot(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "resource_id": { "type": "integer", "minimum": 0 },
+    "root": { "$ref": "#/$defs/node" },
+    "extra": { "type": "object", "additionalProperties": true },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  },
+  "$defs": {
+    "chance": {
+      "description": "A probability. Its meaning depends on the parent node: independent per-entry probability under an and node, a distribution weight under an or node (loot.md rules 5.3 and 5.4).",
+      "type": "number",
+      "minimum": 0
+    },
+    "container": {
+      "description": "A node with children. entries and chances are positionally paired and MUST be the same length; JSON Schema cannot express that cross-array constraint, so scripts/check_references.py enforces it and the loader re-checks it at load time (loot.md section 4).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "entries", "chances"],
+      "properties": {
+        "node": { "enum": ["and", "or"] },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/node" }
+        },
+        "chances": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/chance" }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": ["min_number", "max_number"],
+      "properties": {
+        "min_number": { "type": "integer", "minimum": 0 },
+        "max_number": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "singleItem": {
+      "description": "A leaf granting one item in a count drawn from [min_number, max_number].",
+      "allOf": [
+        { "$ref": "#/$defs/counts" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["node", "item", "min_number", "max_number"],
+          "properties": {
+            "node": { "const": "single-item" },
+            "item": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "min_number": true,
+            "max_number": true
+          }
+        }
+      ]
+    },
+    "money": {
+      "description": "A leaf crediting the purse. It carries no item reference (loot.md rule 5.6.1).",
+      "allOf": [
+        { "$ref": "#/$defs/counts" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["node", "min_number", "max_number"],
+          "properties": {
+            "node": { "const": "money" },
+            "min_number": true,
+            "max_number": true
+          }
+        }
+      ]
+    },
+    "node": {
+      "description": "Any loot node. Branches are discriminated by the required node discriminator (and/or, single-item, money), so at most one can ever match. max_number >= min_number is not expressible here and is enforced by scripts/check_references.py and at load time.",
+      "oneOf": [
+        { "$ref": "#/$defs/container" },
+        { "$ref": "#/$defs/singleItem" },
+        { "$ref": "#/$defs/money" }
+      ]
+    }
+  }
+}
