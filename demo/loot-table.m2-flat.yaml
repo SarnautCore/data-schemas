@@ -1,0 +1,40 @@
+# The second demo loot table. It exists so that "adding a loot table is content"
+# is a claim the fixture pack can actually test: nothing in the shard names this
+# id, and the only thing that makes it roll is a mob document pointing at it.
+#
+# Its shape is the common one. docs/specs/mechanics/loot.md section 8 counts
+# 4,225 of 4,234 reference tables as a flat `and` root, so the second table is
+# deliberately flat where the first one nests three levels deep.
+schema_version: 1
+id: loot.fixture.m2-flat
+source_type: demo.LootTableResource
+root:
+  node: and
+  # 1.0 always passes and 0.0 never does (loot.md rule 5.3.2), and both still
+  # cost a draw. The middle value is written with the digits a reference chance
+  # carries: it is not representable in binary32, so a pack that narrowed
+  # `chances` to a float would change the number and this fixture would say so.
+  chances: [1.0, 0.00618751, 0.0]
+  entries:
+    # 45 units of a 20-limit item is worked example 6.2: two full stacks and a
+    # remainder of five, three free slots required.
+    - node: single-item
+      item:
+        id: item.consumable.harbor-tonic
+        href: /Demo/Items/Consumable/HarborTonic.xdb#item
+      min_number: 45
+      max_number: 45
+    - node: single-item
+      item:
+        id: item.junk.brine-scale
+        href: /Demo/Items/Junk/BrineScale.xdb#item
+      min_number: 1
+      max_number: 2
+    - node: money
+      min_number: 100
+      max_number: 100
+_source:
+  path: Demo/World/LootTables/CopperSparrow/CopperSparrow(02).xdb
+  blake3: "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

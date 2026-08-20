@@ -16,9 +16,12 @@ faction:
 quality:
   id: mobquality.normal
   href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+# Deliberately not the tide crab's table. Two mobs rolling two differently
+# shaped trees is what makes "a second loot table is content, not code" a
+# property the fixture pack can be tested against.
 loot_table:
-  id: loot.fixture.m2-nested
-  href: /Demo/World/LootTables/CopperSparrow/CopperSparrow(01).xdb#loottable
+  id: loot.fixture.m2-flat
+  href: /Demo/World/LootTables/CopperSparrow/CopperSparrow(02).xdb#loottable
 level_min: 2
 level_max: 2
 walk_speed: 2.0

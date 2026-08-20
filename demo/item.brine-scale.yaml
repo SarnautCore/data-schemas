@@ -1,0 +1,21 @@
+schema_version: 1
+id: item.junk.brine-scale
+category: junk
+source_type: demo.ItemResource
+loc_ref:
+  name: BrineScale.Name.txt
+level: 2
+quality:
+  href: /Demo/Qualities/Plain.xdb#quality
+# Deliberately unstackable. docs/specs/mechanics/loot.md rule 5.7.6 says a
+# stack_limit of 1 degenerates to one slot per unit with no remainder stack,
+# and a reader that treats the limit as a constant passes every test built on
+# the other two demo items.
+stack_limit: 1
+vendor_price:
+  sell: 1
+_source:
+  path: Demo/Items/Junk/BrineScale.xdb
+  blake3: "1111111111111111111111111111111111111111111111111111111111111111"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server
