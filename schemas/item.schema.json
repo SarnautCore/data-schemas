@@ -2,13 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.sarnautcore.org/item.schema.json",
   "title": "SarnautCore item",
+  "description": "An item definition. Items are a ruleset-global resource: they carry no zone.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "id", "category", "source_type", "_source"],
   "properties": {
     "schema_version": { "const": 1 },
     "id": { "type": "string", "pattern": "^item\\.[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$" },
-    "category": { "$ref": "#/$defs/slug" },
+    "category": { "$ref": "common.schema.json#/$defs/slug" },
     "source_type": { "type": "string", "minLength": 1 },
     "resource_id": { "type": "integer", "minimum": 0 },
     "sys_name": { "type": "string", "minLength": 1 },
@@ -17,11 +19,11 @@
     "visual_ref": { "type": "string" },
     "level": { "type": "integer" },
     "required_level": { "type": "integer" },
-    "quality": { "$ref": "#/$defs/resourceRef" },
-    "slot": { "$ref": "#/$defs/slug" },
-    "item_class": { "$ref": "#/$defs/resourceRef" },
-    "item_category": { "$ref": "#/$defs/resourceRef" },
-    "binding": { "$ref": "#/$defs/slug" },
+    "quality": { "$ref": "common.schema.json#/$defs/resourceRef" },
+    "slot": { "$ref": "common.schema.json#/$defs/slug" },
+    "item_class": { "$ref": "common.schema.json#/$defs/resourceRef" },
+    "item_category": { "$ref": "common.schema.json#/$defs/resourceRef" },
+    "binding": { "$ref": "common.schema.json#/$defs/slug" },
     "stack_limit": { "type": "integer", "minimum": 0 },
     "vendor_price": {
       "type": "object",
@@ -34,15 +36,7 @@
     },
     "stats": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["stat", "value"],
-        "properties": {
-          "stat": { "type": "string", "minLength": 1 },
-          "value": { "type": "number" }
-        }
-      }
+      "items": { "$ref": "common.schema.json#/$defs/statEntry" }
     },
     "combat": {
       "type": "object",
@@ -53,7 +47,7 @@
         "max_damage": { "type": "number" },
         "weapon_speed": { "type": "number" },
         "spell_power": { "type": "number" },
-        "damage_element": { "$ref": "#/$defs/slug" },
+        "damage_element": { "$ref": "common.schema.json#/$defs/slug" },
         "resist_divine": { "type": "number" },
         "resist_elemental": { "type": "number" },
         "resist_nature": { "type": "number" }
@@ -67,38 +61,18 @@
       "additionalProperties": { "type": "boolean" }
     },
     "extra": { "type": "object", "additionalProperties": true },
-    "_source": { "$ref": "#/$defs/source" }
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
   },
   "$defs": {
-    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
-    "resourceRef": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["href"],
-      "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$" },
-        "href": { "type": "string" }
-      }
-    },
     "itemLocRefs": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string" },
-        "description": { "type": "string" },
-        "bind_description": { "type": "string" }
+        "name": { "$ref": "common.schema.json#/$defs/locKey" },
+        "description": { "$ref": "common.schema.json#/$defs/locKey" },
+        "bind_description": { "$ref": "common.schema.json#/$defs/locKey" }
       },
       "minProperties": 1
-    },
-    "source": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["path", "blake3", "extractor"],
-      "properties": {
-        "path": { "type": "string", "minLength": 1 },
-        "blake3": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-        "extractor": { "type": "string", "pattern": "^sarnaut-extract@[0-9]+\\.[0-9]+\\.[0-9]+" }
-      }
     }
   }
 }
