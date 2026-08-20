@@ -1,0 +1,31 @@
+schema_version: 1
+id: mob.paper-harbor.reef-lurker
+kind: mob
+zone: zone.paper-harbor
+source_type: demo.MobWorldResource
+loc_ref:
+  name: ReefLurker.Name.txt
+  title: ReefLurker.Title.txt
+visual_ref: Demo/Visuals/ReefLurker.gd
+mob_kind:
+  id: mobkind.base.reef
+  href: /Demo/Mechanics/MobKindTemplates/Reef.xdb#mobkind
+faction:
+  id: faction.wild
+  href: /Demo/Mechanics/Factions/Wild.xdb#faction
+quality:
+  id: mobquality.normal
+  href: /Demo/Mechanics/MobQualities/Normal.xdb#mobquality
+level_min: 3
+level_max: 3
+walk_speed: 1.75
+aggro_radius_m: 20.0
+leash_radius_m: 15.0
+abilities:
+  - id: ability.magic.brine-bolt
+    href: /Demo/Mechanics/Spells/Creatures/BrineBolt.xdb#ability
+_source:
+  path: Demo/Creatures/ReefLurker.xdb
+  blake3: "0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

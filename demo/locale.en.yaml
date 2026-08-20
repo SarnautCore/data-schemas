@@ -24,6 +24,20 @@ entries:
     text: Copper Sparrow
   - key: CopperSparrow.Title.txt
     text: Harbor Pest
+  - key: TideCrab.Name.txt
+    text: Tide Crab
+  - key: TideCrab.Title.txt
+    text: Shallows Forager
+  - key: ReefLurker.Name.txt
+    text: Reef Lurker
+  - key: ReefLurker.Title.txt
+    text: Deep Shelf Ambusher
+  - key: BrineBolt.Name.txt
+    text: Brine Bolt
+  - key: BrineBolt.Description.txt
+    text: A bolt of cold seawater, thrown further than a blade reaches.
+  - key: ReefKind.Name.txt
+    text: Reef Dweller
   - key: SparrowKind.Name.txt
     text: Sparrow
   - key: BeastClass.Name.txt

@@ -122,10 +122,19 @@ def load_yaml(path: Path) -> Document:
 def demo_documents() -> list[Document]:
     """Every demo document that is expected to validate.
 
+    The search is recursive so that overlay datasets under ``demo/overlays/``
+    are held to the same schemas and the same reference graph as the base
+    documents they layer over. An overlay that only the pack compiler ever
+    reads is an unvalidated corner of the fixture set.
+
     The negative fixtures live under ``demo/negative/`` and are excluded here;
     they are exercised by ``check_negative.py``.
     """
-    paths = sorted(p for p in DEMO_DIR.glob("*.yaml"))
+    paths = sorted(
+        path
+        for path in DEMO_DIR.rglob("*.yaml")
+        if NEGATIVE_DIR not in path.parents
+    )
     return [load_yaml(path) for path in paths]
 
 

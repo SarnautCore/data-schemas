@@ -22,6 +22,10 @@ loot_table:
 level_min: 2
 level_max: 2
 walk_speed: 2.0
+# Deliberately different from the tide crab's, so a reader that hard-codes one
+# mob's numbers fails on the other.
+aggro_radius_m: 8.0
+leash_radius_m: 30.0
 quests:
   - id: quest.paper-harbor.mossy-gate
     href: /Demo/World/Quests/PaperHarbor/MossyGate.xdb#quest

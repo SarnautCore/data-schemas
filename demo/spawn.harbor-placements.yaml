@@ -29,6 +29,20 @@ placements:
       y: -4.0
       z: 0.0
     spawn_time: once
+  # The M2 combat target. It sits well clear of the sparrows so that a test
+  # walking a player in and out of its aggro radius crosses nothing else.
+  - id: placement.paper-harbor.tide-crab-1
+    object:
+      id: mob.paper-harbor.tide-crab
+      href: /Demo/Creatures/TideCrab.xdb#mob
+    position:
+      x: 0.0
+      y: -40.0
+      z: 0.0
+    spawn_time: once
+    respawn_delay_ms:
+      min: 10000
+      max: 14000
 _source:
   path: Demo/Maps/PaperHarbor/Placements/HarborGreen.xdb
   blake3: "5555555555555555555555555555555555555555555555555555555555555555"
