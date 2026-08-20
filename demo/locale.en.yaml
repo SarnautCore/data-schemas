@@ -4,6 +4,8 @@ language: en
 source_root: demo-client
 source_type: demo.LocPack
 entries:
+  - key: BrineScale.Name.txt
+    text: Brine Scale
   - key: ClockworkFeather.Name.txt
     text: Clockwork Feather
   - key: HarborTonic.Name.txt
