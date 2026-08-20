@@ -24,6 +24,70 @@ entries:
     text: Something is nesting in the gatehouse. Three somethings.
   - key: MossyGate.Finish.txt
     text: Quieter already. Take this.
+  - key: TideToken.Name.txt
+    text: Tide Token
+  - key: HarborWelcome.Name.txt
+    text: Welcome to the Harbor
+  - key: HarborWelcome.Goal.txt
+    text: Say hello to the quartermaster.
+  - key: HarborWelcome.Start.txt
+    text: New here? Say so, and I will write you down.
+  - key: HarborWelcome.Finish.txt
+    text: Written down. Try not to fall in.
+  - key: TideTally.Name.txt
+    text: The Tide Tally
+  - key: TideTally.Goal.txt
+    text: Deal with the crab on the mud flat.
+  - key: TideTally.Counter.txt
+    text: Crabs tallied
+  - key: TideTally.Start.txt
+    text: One crab. It has been at the nets for a week.
+  - key: TideTally.Finish.txt
+    text: Tallied. Take a scale and a token for the trouble.
+  - key: DeepTally.Name.txt
+    text: The Deeper Tally
+  - key: DeepTally.Goal.txt
+    text: Clear two sparrows off the pier.
+  - key: DeepTally.Counter.txt
+    text: Sparrows tallied
+  - key: DeepTally.Start.txt
+    text: You did the crab. Now the birds.
+  - key: DeepTally.Finish.txt
+    text: Quieter. Here.
+  - key: HarborVigil.Name.txt
+    text: The Harbor Vigil
+  - key: HarborVigil.Goal.txt
+    text: Stand the night watch on the pier.
+  - key: HarborVigil.Counter.txt
+    text: Watches stood
+  - key: HarborVigil.Start.txt
+    text: Not yet. Come back when you have some sea under you.
+  - key: HarborVigil.Finish.txt
+    text: You stood it. Good.
+  - key: TonicTithe.Name.txt
+    text: The Tonic Tithe
+  - key: TonicTithe.Goal.txt
+    text: Hand over two harbor tonics.
+  - key: TonicTithe.Counter.txt
+    text: Tonics held
+  - key: TonicTithe.Start.txt
+    text: Two of those bottles, and the token is yours.
+  - key: TonicTithe.Finish.txt
+    text: Two exactly. Here is the token.
+  - key: GateRitual.Name.txt
+    text: The Gate Ritual
+  - key: GateRitual.Goal.txt
+    text: Do the thing at the gate that nothing yet can do.
+  - key: GateRitual.Counter.txt
+    text: Rites performed
+  - key: GateRitual.Start.txt
+    text: There is a rite for the gate. Nobody remembers it.
+  - key: GateRitual.Finish.txt
+    text: You remembered it.
+  - key: HarborQuartermaster.Name.txt
+    text: Harbor Quartermaster
+  - key: HarborQuartermaster.Title.txt
+    text: Keeper of the Tally
   - key: PaperHarbor.Name.txt
     text: Paper Harbor
   - key: PaperHarbor.Description.txt

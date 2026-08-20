@@ -1,0 +1,41 @@
+schema_version: 1
+id: quest.paper-harbor.gate-ritual
+curation_note: >-
+  Invented for the overlay exhibit, not extracted. It exists to be refused:
+  its only objective is quest-count-special, the kind mechanics/quests.md rule
+  5.5.6 makes the shard reject at content-load, and a test that asserts the
+  rejection needs a compiled pack carrying one.
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: GateRitual.Name.txt
+  goal: GateRitual.Goal.txt
+  start: GateRitual.Start.txt
+  finish: GateRitual.Finish.txt
+level: 1
+required_level: 1
+quest_type: quest-type-solo
+starter:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+finisher:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+objectives:
+  # The kind M2 does not implement. It is advanced by quest script impacts
+  # firing against a named counter, and the impact system is deferred per
+  # ADR 0003, so mechanics/quests.md rule 5.5.6 makes the shard refuse the
+  # whole definition at content-load and name it.
+  - kind: quest-count-special
+    loc_ref: GateRitual.Counter.txt
+    limit: 1
+    internal: true
+    show_count: false
+rewards:
+  experience: 1
+flags:
+  can_cancel: true
+_source:
+  path: Demo/World/Quests/PaperHarbor/GateRitual.xdb
+  blake3: "a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6"
+  extractor: sarnaut-extract@0.1.0-demo

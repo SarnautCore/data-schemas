@@ -12,3 +12,9 @@ layers:
   - id: m2-combat-extended
     description: A second ability and a second mob, used to prove that adding combat content is a data change.
     apply_by_default: false
+  # Also off by default, and for a stronger reason than the layer above: the
+  # pack it produces is one the shard is required to refuse. It exists so that
+  # mechanics/quests.md rule 5.5.6 can be tested against a compiled pack.
+  - id: m2-quest-unsupported
+    description: One quest whose only objective is quest-count-special, the kind M2 refuses at content-load.
+    apply_by_default: false

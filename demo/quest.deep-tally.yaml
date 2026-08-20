@@ -1,0 +1,49 @@
+schema_version: 1
+id: quest.paper-harbor.deep-tally
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: DeepTally.Name.txt
+  goal: DeepTally.Goal.txt
+  start: DeepTally.Start.txt
+  finish: DeepTally.Finish.txt
+level: 2
+required_level: 1
+quest_type: quest-type-solo
+starter:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+finisher:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+# The single prerequisite edge of mechanics/quests.md rule 5.3.3. `Finished` is
+# the only status M2 accepts, and the shard refuses any other value at
+# content-load rather than at evaluation time.
+prerequisites:
+  - quest:
+      id: quest.paper-harbor.tide-tally
+      href: /Demo/World/Quests/PaperHarbor/TideTally.xdb#quest
+    status: Finished
+objectives:
+  - kind: quest-count-kill
+    loc_ref: DeepTally.Counter.txt
+    limit: 2
+    internal: false
+    show_count: true
+    targets:
+      - id: mob.paper-harbor.copper-sparrow
+        href: /Demo/Creatures/CopperSparrow.xdb#mob
+rewards:
+  experience: 12
+  mandatory_items:
+    - item:
+        id: item.quest-rewards.tide-token
+        href: /Demo/Items/QuestRewards/TideToken.xdb#item
+      count: 1
+      hidden: false
+flags:
+  can_cancel: true
+_source:
+  path: Demo/World/Quests/PaperHarbor/DeepTally.xdb
+  blake3: "a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3"
+  extractor: sarnaut-extract@0.1.0-demo

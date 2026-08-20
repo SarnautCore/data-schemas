@@ -1,0 +1,38 @@
+schema_version: 1
+id: quest.paper-harbor.harbor-vigil
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: HarborVigil.Name.txt
+  goal: HarborVigil.Goal.txt
+  start: HarborVigil.Start.txt
+  finish: HarborVigil.Finish.txt
+level: 5
+# Above the zone's starting level on purpose. A fresh character is level 1, so
+# this is the fixture for mechanics/quests.md rule 5.3.2: gates fail, the quest
+# is `unavailable`, and the starter does not offer it.
+required_level: 5
+quest_type: quest-type-solo
+starter:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+finisher:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+objectives:
+  - kind: quest-count-kill
+    loc_ref: HarborVigil.Counter.txt
+    limit: 1
+    internal: false
+    show_count: true
+    targets:
+      - id: mob.paper-harbor.copper-sparrow
+        href: /Demo/Creatures/CopperSparrow.xdb#mob
+rewards:
+  experience: 20
+flags:
+  can_cancel: true
+_source:
+  path: Demo/World/Quests/PaperHarbor/HarborVigil.xdb
+  blake3: "a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4"
+  extractor: sarnaut-extract@0.1.0-demo

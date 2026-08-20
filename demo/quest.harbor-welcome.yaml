@@ -1,0 +1,32 @@
+schema_version: 1
+id: quest.paper-harbor.harbor-welcome
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+loc_ref:
+  name: HarborWelcome.Name.txt
+  goal: HarborWelcome.Goal.txt
+  start: HarborWelcome.Start.txt
+  finish: HarborWelcome.Finish.txt
+level: 1
+# No level gate at all, which mechanics/quests.md rule 5.3.2 defines as the
+# meaning of zero and which the M2 zone's own first quest uses.
+required_level: 0
+quest_type: quest-type-solo
+starter:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+finisher:
+  id: mob.paper-harbor.harbor-quartermaster
+  href: /Demo/Creatures/HarborQuartermaster.xdb#mob
+# Deliberately no `objectives` key at all. mechanics/quests.md rule 5.6 makes
+# such a quest completable the moment it is accepted, and states that this is
+# not a special case in the code: "every counter has reached its limit" is
+# vacuously true over an empty counter list.
+rewards:
+  experience: 2
+flags:
+  can_cancel: true
+_source:
+  path: Demo/World/Quests/PaperHarbor/HarborWelcome.xdb
+  blake3: "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+  extractor: sarnaut-extract@0.1.0-demo
