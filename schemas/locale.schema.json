@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/locale.schema.json",
+  "title": "SarnautCore locale table",
+  "description": "One language's display strings, keyed by the canonical localization keys that loc_ref fields point at (ADR 0007). Locale tables are global and carry no zone. Which source root supplied the strings is recorded, because classic display text comes from the 1.1 client loc packs while the mechanics it describes come from the 1.1 server tree (ADR 0009), and a key that silently changed roots between extractions is a bug worth seeing.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "language", "source_root", "source_type", "entries", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^locale(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" },
+    "language": {
+      "description": "BCP 47 language subtag. English is canonical; other languages are additive (ADR 0007).",
+      "type": "string",
+      "pattern": "^[a-z]{2}(?:-[A-Za-z0-9]+)*$"
+    },
+    "source_root": {
+      "description": "The canonical source root every entry came from unless the entry overrides it.",
+      "$ref": "common.schema.json#/$defs/sourceRoot"
+    },
+    "source_type": { "type": "string", "minLength": 1 },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "text"],
+        "properties": {
+          "key": { "$ref": "common.schema.json#/$defs/locKey" },
+          "text": { "type": "string" },
+          "source_root": {
+            "description": "Overrides the document-level source_root for this key alone, for gap-filled strings taken from a secondary tree.",
+            "$ref": "common.schema.json#/$defs/sourceRoot"
+          }
+        }
+      }
+    },
+    "extra": { "type": "object", "additionalProperties": true },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  }
+}

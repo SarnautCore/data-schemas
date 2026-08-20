@@ -2,43 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.sarnautcore.org/spawn.schema.json",
   "title": "SarnautCore spawn resource",
+  "description": "Spawn tables, mob templates and placements. Every spawn document is scoped to exactly one zone, so this schema adds the zone field on top of the zone-free common base.",
   "oneOf": [
     { "$ref": "#/$defs/table" },
     { "$ref": "#/$defs/mob" },
     { "$ref": "#/$defs/placements" }
   ],
   "$defs": {
-    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
-    "canonicalId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$" },
-    "resourceRef": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["href"],
-      "properties": {
-        "id": { "$ref": "#/$defs/canonicalId" },
-        "href": { "type": "string" }
-      }
-    },
-    "source": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["path", "blake3", "extractor"],
-      "properties": {
-        "path": { "type": "string", "minLength": 1 },
-        "blake3": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-        "extractor": { "type": "string", "pattern": "^sarnaut-extract@[0-9]+\\.[0-9]+\\.[0-9]+" }
-      }
-    },
     "base": {
+      "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
       "type": "object",
-      "required": ["schema_version", "id", "kind", "zone", "source_type", "_source"],
+      "required": ["kind", "zone"],
       "properties": {
-        "schema_version": { "const": 1 },
-        "id": { "$ref": "#/$defs/canonicalId" },
         "kind": { "enum": ["table", "mob", "placements"] },
-        "zone": { "type": "string", "pattern": "^zone\\.[a-z0-9]+(?:-[a-z0-9]+)*$" },
-        "source_type": { "type": "string", "minLength": 1 },
-        "_source": { "$ref": "#/$defs/source" }
+        "zone": { "$ref": "common.schema.json#/$defs/zoneId" }
       }
     },
     "table": {
@@ -63,10 +40,10 @@
                 "additionalProperties": false,
                 "required": ["group", "object"],
                 "properties": {
-                  "group": { "$ref": "#/$defs/slug" },
-                  "object": { "$ref": "#/$defs/resourceRef" },
+                  "group": { "$ref": "common.schema.json#/$defs/slug" },
+                  "object": { "$ref": "common.schema.json#/$defs/resourceRef" },
                   "chance": { "type": "number" },
-                  "spawn_time": { "$ref": "#/$defs/slug" },
+                  "spawn_time": { "$ref": "common.schema.json#/$defs/slug" },
                   "extra": { "type": "object", "additionalProperties": true }
                 }
               }
@@ -81,8 +58,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string" },
-        "title": { "type": "string" }
+        "name": { "$ref": "common.schema.json#/$defs/locKey" },
+        "title": { "$ref": "common.schema.json#/$defs/locKey" }
       },
       "minProperties": 1
     },
@@ -102,39 +79,20 @@
             "resource_id": { "type": "integer", "minimum": 0 },
             "loc_ref": { "$ref": "#/$defs/mobLocRefs" },
             "visual_ref": { "type": "string" },
-            "mob_kind": { "$ref": "#/$defs/resourceRef" },
-            "faction": { "$ref": "#/$defs/resourceRef" },
-            "quality": { "$ref": "#/$defs/resourceRef" },
+            "mob_kind": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "faction": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "quality": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "loot_table": { "$ref": "common.schema.json#/$defs/resourceRef" },
             "level_min": { "type": "integer" },
             "level_max": { "type": "integer" },
             "walk_speed": { "type": "number" },
-            "quests": { "type": "array", "items": { "$ref": "#/$defs/resourceRef" } },
-            "abilities": { "type": "array", "items": { "$ref": "#/$defs/resourceRef" } },
+            "quests": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/resourceRef" } },
+            "abilities": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/resourceRef" } },
             "extra": { "type": "object", "additionalProperties": true },
             "_source": true
           }
         }
       ]
-    },
-    "position": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["x", "y", "z"],
-      "properties": {
-        "x": { "type": "number" },
-        "y": { "type": "number" },
-        "z": { "type": "number" }
-      }
-    },
-    "orientation": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["yaw", "pitch", "roll"],
-      "properties": {
-        "yaw": { "type": "number" },
-        "pitch": { "type": "number" },
-        "roll": { "type": "number" }
-      }
     },
     "placements": {
       "allOf": [
@@ -148,7 +106,7 @@
             "id": true,
             "kind": { "const": "placements" },
             "zone": true,
-            "map": { "$ref": "#/$defs/slug" },
+            "map": { "$ref": "common.schema.json#/$defs/slug" },
             "source_type": true,
             "placements": {
               "type": "array",
@@ -157,14 +115,14 @@
                 "additionalProperties": false,
                 "required": ["id", "object"],
                 "properties": {
-                  "id": { "$ref": "#/$defs/canonicalId" },
+                  "id": { "$ref": "common.schema.json#/$defs/canonicalId" },
                   "script_id": { "type": "string" },
-                  "object": { "$ref": "#/$defs/resourceRef" },
-                  "position": { "$ref": "#/$defs/position" },
-                  "orientation": { "$ref": "#/$defs/orientation" },
-                  "route": { "$ref": "#/$defs/canonicalId" },
+                  "object": { "$ref": "common.schema.json#/$defs/resourceRef" },
+                  "position": { "$ref": "common.schema.json#/$defs/position" },
+                  "orientation": { "$ref": "common.schema.json#/$defs/orientation" },
+                  "route": { "$ref": "common.schema.json#/$defs/canonicalId" },
                   "tuner_ref": { "type": "string" },
-                  "spawn_time": { "$ref": "#/$defs/slug" },
+                  "spawn_time": { "$ref": "common.schema.json#/$defs/slug" },
                   "scan_radius": { "type": "number" }
                 },
                 "anyOf": [

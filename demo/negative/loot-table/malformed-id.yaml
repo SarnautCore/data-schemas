@@ -1,0 +1,15 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: loot.Fixture.Negative
+source_type: demo.LootTableResource
+root:
+  node: and
+  chances: [1.0]
+  entries:
+    - node: money
+      min_number: 1
+      max_number: 2
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

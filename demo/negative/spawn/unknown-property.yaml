@@ -1,0 +1,12 @@
+# Rejected: unexpected_field is not declared, and additionalProperties is
+# false on every branch of the oneOf, so no branch accepts it.
+schema_version: 1
+id: spawn.paper-harbor.table.negative-fixture
+kind: table
+zone: zone.paper-harbor
+source_type: demo.SpawnTable
+unexpected_field: true
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

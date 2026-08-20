@@ -1,0 +1,20 @@
+schema_version: 1
+id: faction.empire
+source_type: demo.FactionResource
+loc_ref:
+  name: FactionEmpire.Name.txt
+player_faction: true
+attackable: false
+default_stance: neutral
+relations:
+  - faction: faction.empire
+    stance: friendly
+  - faction: faction.wild
+    stance: hostile
+  - faction: faction.league
+    stance: hostile
+_source:
+  path: Demo/Mechanics/Factions/Empire.xdb
+  blake3: "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

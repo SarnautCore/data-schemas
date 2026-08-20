@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/mobkind.schema.json",
+  "title": "SarnautCore mob kind, class and quality",
+  "description": "The three global creature-taxonomy resources that live under /Mechanics and are shared by every zone: MobKind (the multiplier carrier), MobClass and MobQuality. None of them carries a zone. The three are discriminated by a required const kind, so the oneOf below can never match more than one branch.",
+  "oneOf": [
+    { "$ref": "#/$defs/mobkind" },
+    { "$ref": "#/$defs/mobclass" },
+    { "$ref": "#/$defs/mobquality" }
+  ],
+  "$defs": {
+    "base": {
+      "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["mobkind", "mobclass", "mobquality"] }
+      }
+    },
+    "modifier": {
+      "description": "A multiplier applied to a base value derived elsewhere. Absent means 1.0 (combat.md rule 5.1.1); it is never written out as a default.",
+      "type": "number",
+      "minimum": 0
+    },
+    "mobkind": {
+      "description": "A MobKind: the multipliers that scale a mob's derived stats, plus its class and quality. MobKinds inherit through a prototype chain, and the chain that produced the resolved values is recorded in _source.prototype_chain.",
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema_version", "id", "kind", "source_type", "_source"],
+          "properties": {
+            "schema_version": true,
+            "id": { "type": "string", "pattern": "^mobkind(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" },
+            "kind": { "const": "mobkind" },
+            "source_type": true,
+            "resource_id": { "type": "integer", "minimum": 0 },
+            "loc_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "name": { "$ref": "common.schema.json#/$defs/locKey" }
+              }
+            },
+            "prototype": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "mob_class": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "quality": { "$ref": "common.schema.json#/$defs/resourceRef" },
+            "hp_mod": { "$ref": "#/$defs/modifier" },
+            "dps_mod": { "$ref": "#/$defs/modifier" },
+            "exp_mod": { "$ref": "#/$defs/modifier" },
+            "mana_mod": { "$ref": "#/$defs/modifier" },
+            "loot_mod": { "$ref": "#/$defs/modifier" },
+            "speed": { "type": "number", "minimum": 0 },
+            "extra": { "type": "object", "additionalProperties": true },
+            "_source": {
+              "allOf": [
+                { "$ref": "common.schema.json#/$defs/source" },
+                { "required": ["prototype_chain"] }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "mobclass": {
+      "description": "A MobClass: the broad creature family a mob belongs to. Referenced by MobKind and by ability and quest targeting rules.",
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema_version", "id", "kind", "source_type", "_source"],
+          "properties": {
+            "schema_version": true,
+            "id": { "type": "string", "pattern": "^mobclass\\.[a-z0-9]+(?:-[a-z0-9]+)*$" },
+            "kind": { "const": "mobclass" },
+            "source_type": true,
+            "resource_id": { "type": "integer", "minimum": 0 },
+            "loc_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "name": { "$ref": "common.schema.json#/$defs/locKey" }
+              }
+            },
+            "extra": { "type": "object", "additionalProperties": true },
+            "_source": true
+          }
+        }
+      ]
+    },
+    "mobquality": {
+      "description": "A MobQuality: the normal / elite / boss rank that scales a mob on top of its MobKind.",
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema_version", "id", "kind", "rank", "source_type", "_source"],
+          "properties": {
+            "schema_version": true,
+            "id": { "type": "string", "pattern": "^mobquality\\.[a-z0-9]+(?:-[a-z0-9]+)*$" },
+            "kind": { "const": "mobquality" },
+            "rank": { "type": "integer", "minimum": 0 },
+            "source_type": true,
+            "resource_id": { "type": "integer", "minimum": 0 },
+            "loc_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "minProperties": 1,
+              "properties": {
+                "name": { "$ref": "common.schema.json#/$defs/locKey" }
+              }
+            },
+            "hp_mod": { "$ref": "#/$defs/modifier" },
+            "dps_mod": { "$ref": "#/$defs/modifier" },
+            "exp_mod": { "$ref": "#/$defs/modifier" },
+            "extra": { "type": "object", "additionalProperties": true },
+            "_source": true
+          }
+        }
+      ]
+    }
+  }
+}

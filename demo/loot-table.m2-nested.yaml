@@ -1,0 +1,45 @@
+# The three-level nested and/or fixture from docs/specs/mechanics/loot.md section 6.1,
+# built from demo items. Container depth is 3: root -> entries[1] -> entries[1].entries[1].
+# Reference data contains no tree this deep, so this one is curated to exercise recursion.
+schema_version: 1
+id: loot.fixture.m2-nested
+source_type: demo.LootTableResource
+root:
+  node: and
+  chances: [1.0, 0.5, 0.25]
+  entries:
+    - node: money
+      min_number: 2
+      max_number: 4
+    - node: or
+      chances: [0.3, 0.7]
+      entries:
+        - node: single-item
+          item:
+            id: item.junk.clockwork-feather
+            href: /Demo/Items/Junk/ClockworkFeather.xdb#item
+          min_number: 1
+          max_number: 3
+        - node: and
+          chances: [1.0, 0.4]
+          entries:
+            - node: single-item
+              item:
+                id: item.consumable.harbor-tonic
+                href: /Demo/Items/Consumable/HarborTonic.xdb#item
+              min_number: 1
+              max_number: 1
+            - node: money
+              min_number: 10
+              max_number: 10
+    - node: single-item
+      item:
+        id: item.junk.clockwork-feather
+        href: /Demo/Items/Junk/ClockworkFeather.xdb#item
+      min_number: 1
+      max_number: 1
+_source:
+  path: Demo/World/LootTables/CopperSparrow/CopperSparrow(01).xdb
+  blake3: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

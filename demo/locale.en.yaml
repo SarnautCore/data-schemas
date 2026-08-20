@@ -1,0 +1,51 @@
+schema_version: 1
+id: locale.en.demo
+language: en
+source_root: demo-client
+source_type: demo.LocPack
+entries:
+  - key: ClockworkFeather.Name.txt
+    text: Clockwork Feather
+  - key: HarborTonic.Name.txt
+    text: Harbor Tonic
+  - key: HarborTonic.Description.txt
+    text: Bitter, salty, and better than the alternative.
+  - key: MossyGate.Name.txt
+    text: The Mossy Gate
+  - key: MossyGate.Goal.txt
+    text: Look over the gate at the end of the pier.
+  - key: MossyGate.Counter.txt
+    text: Gate inspected
+  - key: PaperHarbor.Name.txt
+    text: Paper Harbor
+  - key: PaperHarbor.Description.txt
+    text: A quiet training harbor built out of leftovers.
+  - key: CopperSparrow.Name.txt
+    text: Copper Sparrow
+  - key: CopperSparrow.Title.txt
+    text: Harbor Pest
+  - key: SparrowKind.Name.txt
+    text: Sparrow
+  - key: BeastClass.Name.txt
+    text: Beast
+  - key: NormalQuality.Name.txt
+    text: Normal
+  - key: FactionWild.Name.txt
+    text: Wild
+  - key: FactionLeague.Name.txt
+    text: League
+  - key: FactionEmpire.Name.txt
+    text: Empire
+  - key: HarborCleave.Name.txt
+    text: Harbor Cleave
+  - key: HarborCleave.Description.txt
+    text: A wide swing that costs nothing but time.
+  - key: LeagueWarrior.Name.txt
+    text: League Warrior
+  - key: LeagueWarrior.Description.txt
+    text: Melee starter. Hits things until they stop.
+_source:
+  path: Demo/LocPacks/en/Demo.locpack
+  blake3: "2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-client

@@ -1,0 +1,11 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: Ability.Melee.NegativeFixture
+source_type: demo.SpellResource
+target: enemy
+effects:
+  - kind: damage
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

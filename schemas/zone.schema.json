@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/zone.schema.json",
+  "title": "SarnautCore zone",
+  "description": "A zone: the thing every zone-scoped document's zone field points at. A zone document has no zone field of its own because its id is the zone id.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_type", "maps", "player_spawn", "bounds", "level_range", "instance", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "$ref": "common.schema.json#/$defs/zoneId" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "resource_id": { "type": "integer", "minimum": 0 },
+    "loc_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "name": { "$ref": "common.schema.json#/$defs/locKey" },
+        "description": { "$ref": "common.schema.json#/$defs/locKey" }
+      }
+    },
+    "maps": {
+      "description": "The map slugs this zone is built from. Every route and placements document in the zone names one of these.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "common.schema.json#/$defs/slug" }
+    },
+    "player_spawn": {
+      "description": "Where a player without a saved position appears. Chargen spawn points are authoritative for new characters (ADR 0032); this is the zone's own fallback.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["map", "position", "heading"],
+      "properties": {
+        "map": { "$ref": "common.schema.json#/$defs/slug" },
+        "position": { "$ref": "common.schema.json#/$defs/position" },
+        "heading": { "type": "number" }
+      }
+    },
+    "bounds": {
+      "description": "The axis-aligned box a player may occupy. A position outside it is a bug, not a place.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "$ref": "common.schema.json#/$defs/position" },
+        "max": { "$ref": "common.schema.json#/$defs/position" }
+      }
+    },
+    "level_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "integer", "minimum": 1 },
+        "max": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "instance": {
+      "description": "Instance rules. instanced is required so that a shared world zone is an explicit false rather than an omission.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instanced"],
+      "properties": {
+        "instanced": { "type": "boolean" },
+        "max_players": { "type": "integer", "minimum": 1 },
+        "reset_policy": { "enum": ["never", "on-empty", "daily"] },
+        "empty_shutdown_s": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "extra": { "type": "object", "additionalProperties": true },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  }
+}

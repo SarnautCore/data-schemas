@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/common.schema.json",
+  "title": "SarnautCore common definitions",
+  "description": "Shared identifier, geometry and provenance vocabulary. This file is not a document schema: no authored YAML validates directly against it. Every document schema pulls $defs out of it so that the provenance contract is written once.",
+  "$defs": {
+    "slug": {
+      "description": "A lowercase, hyphen-separated token with no dots.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "canonicalId": {
+      "description": "An English canonical identifier (ADR 0007): two or more dot-separated slugs, e.g. item.junk.clockwork-feather.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$"
+    },
+    "zoneId": {
+      "description": "The canonical id of a zone document.",
+      "type": "string",
+      "pattern": "^zone\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "locKey": {
+      "description": "A localization key resolved through a locale document. Keys are stable strings supplied by the source localization pack, keyed to canonical ids per ADR 0007. The pattern is deliberately permissive — it only rules out empty keys and keys starting with punctuation — because the key space belongs to the source loc packs, not to this project.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._/-]*$"
+    },
+    "sourceRoot": {
+      "description": "Which canonical source root (ADR 0009) supplied a value: classic-server-1-1, classic-client-1-1, modern-server-7-0, modern-client-17-0, or a demo root.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "resourceRef": {
+      "description": "A pointer at another resource. href is the source-tree path and is always present. id is present once the extractor has mapped that path to a canonical id; a ref carrying an id is an edge in the content reference graph, a ref without one is not yet mapped.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["href"],
+      "properties": {
+        "id": { "$ref": "#/$defs/canonicalId" },
+        "href": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source": {
+      "description": "Provenance for one authored document: where the bytes came from, what they hashed to, and which extractor produced them.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "blake3", "extractor"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "blake3": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "extractor": { "type": "string", "pattern": "^sarnaut-extract@[0-9]+\\.[0-9]+\\.[0-9]+" },
+        "source_root": { "$ref": "#/$defs/sourceRoot" },
+        "prototype_chain": {
+          "description": "The prototype documents that were merged, in application order, ending with this document's own id. Recorded so a resolved value can be traced back to the prototype that supplied it.",
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/canonicalId" }
+        }
+      }
+    },
+    "base": {
+      "description": "The fields every extracted document carries. Deliberately zone-free: mob kinds, loot tables, factions, locales, chargen options and abilities are global resources with no zone. Schemas whose documents are scoped to one zone add the zone field themselves.",
+      "type": "object",
+      "required": ["schema_version", "id", "source_type", "_source"],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "id": { "$ref": "#/$defs/canonicalId" },
+        "source_type": { "type": "string", "minLength": 1 },
+        "_source": { "$ref": "#/$defs/source" }
+      }
+    },
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    },
+    "orientation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["yaw", "pitch", "roll"],
+      "properties": {
+        "yaw": { "type": "number" },
+        "pitch": { "type": "number" },
+        "roll": { "type": "number" }
+      }
+    },
+    "statEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stat", "value"],
+      "properties": {
+        "stat": { "type": "string", "minLength": 1 },
+        "value": { "type": "number" }
+      }
+    }
+  }
+}

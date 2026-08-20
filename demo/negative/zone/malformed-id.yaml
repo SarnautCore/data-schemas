@@ -1,0 +1,31 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: Zone.NegativeFixture
+source_type: demo.ZoneResource
+maps:
+  - negative
+player_spawn:
+  map: negative
+  position:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  heading: 0.0
+bounds:
+  min:
+    x: -1.0
+    y: -1.0
+    z: -1.0
+  max:
+    x: 1.0
+    y: 1.0
+    z: 1.0
+level_range:
+  min: 1
+  max: 2
+instance:
+  instanced: false
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

@@ -1,0 +1,19 @@
+# Rejected: a money leaf credits the purse and carries no item reference
+# (loot.md rule 5.6.1), so an item field on one is an error and not an extra.
+schema_version: 1
+id: loot.fixture.negative-node
+source_type: demo.LootTableResource
+root:
+  node: and
+  chances: [1.0]
+  entries:
+    - node: money
+      min_number: 1
+      max_number: 2
+      item:
+        id: item.junk.clockwork-feather
+        href: /Demo/Items/Junk/ClockworkFeather.xdb#item
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

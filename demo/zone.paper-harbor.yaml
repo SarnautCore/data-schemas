@@ -1,0 +1,38 @@
+schema_version: 1
+id: zone.paper-harbor
+source_type: demo.ZoneResource
+loc_ref:
+  name: PaperHarbor.Name.txt
+  description: PaperHarbor.Description.txt
+maps:
+  - paper-harbor
+  - tide-steps
+player_spawn:
+  map: paper-harbor
+  position:
+    x: 12.0
+    y: 4.5
+    z: 0.0
+  heading: 90.0
+bounds:
+  min:
+    x: -64.0
+    y: -64.0
+    z: -8.0
+  max:
+    x: 64.0
+    y: 64.0
+    z: 32.0
+level_range:
+  min: 1
+  max: 5
+instance:
+  instanced: true
+  max_players: 5
+  reset_policy: on-empty
+  empty_shutdown_s: 300
+_source:
+  path: Demo/Maps/PaperHarbor/PaperHarbor.xdb
+  blake3: "3333333333333333333333333333333333333333333333333333333333333333"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

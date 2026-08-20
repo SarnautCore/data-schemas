@@ -1,0 +1,16 @@
+# Rejected: routes are authored per zone, so zone stays required here even
+# though the common base no longer requires it.
+schema_version: 1
+id: route.paper-harbor.negative-fixture
+map: paper-harbor
+source_type: demo.RouteResource
+points:
+  - index: 0
+    position:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

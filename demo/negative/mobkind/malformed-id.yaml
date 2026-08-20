@@ -1,0 +1,11 @@
+# Rejected: the id is not a canonical English slug id.
+schema_version: 1
+id: MobKind.Base.NegativeFixture
+kind: mobkind
+source_type: demo.MobKind
+_source:
+  path: Demo/Negative/Fixture.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo
+  prototype_chain:
+    - mobkind.base.negative-fixture

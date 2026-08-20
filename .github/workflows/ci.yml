@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install pinned validator
+        run: python -m pip install --disable-pip-version-check -r scripts/requirements.txt
+
+      # Every step below runs against the checked-out tree alone. The schema
+      # registry is built from schemas/ and its retriever refuses to fetch, so
+      # https://schemas.sarnautcore.org/ stays an identifier namespace and a
+      # $ref this repository does not ship fails instead of reaching outward.
+      - name: Validate schemas against the draft 2020-12 meta-schema
+        run: python scripts/validate_schemas.py
+
+      - name: Validate demo documents
+        run: python scripts/validate_demo.py
+
+      - name: Check the demo reference graph
+        run: python scripts/check_references.py
+
+      - name: Run negative fixtures
+        run: python scripts/check_negative.py
+
+      - name: Check for private data
+        run: python scripts/check_no_private_data.py
