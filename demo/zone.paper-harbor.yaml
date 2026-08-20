@@ -7,13 +7,18 @@ loc_ref:
 maps:
   - paper-harbor
   - tide-steps
+# Deliberately not the League warrior chargen option's spawn. ADR 0032 makes a
+# created character's start point a property of the option; this is the zone's
+# own fallback, for a debug entity or one whose owner has no saved position.
+# The fixture keeps the two apart so a reader that confused them fails here
+# rather than in a shard.
 player_spawn:
   map: paper-harbor
   position:
-    x: 12.0
-    y: 4.5
+    x: -6.0
+    y: 10.0
     z: 0.0
-  heading: 90.0
+  heading: 180.0
 bounds:
   min:
     x: -64.0
