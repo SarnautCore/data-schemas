@@ -1,0 +1,10 @@
+schema_version: 1
+id: item.junk.required-level-out-of-range
+category: junk
+source_type: demo.ItemResource
+required_level: -2147483649
+_source:
+  path: Demo/Items/Junk/RequiredLevelOutOfRange.xdb
+  blake3: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

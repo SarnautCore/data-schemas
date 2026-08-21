@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile content.proto and compare its script field map with the checked lock.
+"""Compile content.proto and compare its locked field maps.
 
 The descriptor compilation catches protobuf syntax and type errors. The
 human-readable lock catches a field rename, number reuse, cardinality change,
@@ -21,7 +21,10 @@ from _common import REPO_ROOT
 
 PROTO_ROOT = REPO_ROOT / "proto"
 PROTO_PATH = PROTO_ROOT / "sarnaut" / "content" / "v1" / "content.proto"
-LOCK_PATH = PROTO_PATH.with_name("content.script-contract.lock.json")
+LOCK_PATHS = [
+    PROTO_PATH.with_name("content.script-contract.lock.json"),
+    PROTO_PATH.with_name("content.item-contract.lock.json"),
+]
 
 
 def _without_comments(text: str) -> str:
@@ -117,9 +120,10 @@ def _compile() -> str | None:
 
 
 def main() -> int:
-    lock = json.loads(LOCK_PATH.read_text(encoding="utf-8"))
     text = _without_comments(PROTO_PATH.read_text(encoding="utf-8"))
     failures: list[str] = []
+    enum_count = 0
+    message_count = 0
 
     compile_error = _compile()
     if compile_error:
@@ -127,26 +131,30 @@ def main() -> int:
     else:
         print("ok   content.proto descriptor compile")
 
-    for name, expected in lock["enums"].items():
-        actual = _enum(text, name)
-        if actual != expected:
-            failures.append(f"enum {name}: got {actual!r}, lock requires {expected!r}")
-        else:
-            print(f"ok   enum {name}")
+    for lock_path in LOCK_PATHS:
+        lock = json.loads(lock_path.read_text(encoding="utf-8"))
+        for name, expected in lock.get("enums", {}).items():
+            enum_count += 1
+            actual = _enum(text, name)
+            if actual != expected:
+                failures.append(f"enum {name}: got {actual!r}, lock requires {expected!r}")
+            else:
+                print(f"ok   enum {name}")
 
-    for name, expected in lock["messages"].items():
-        actual = _message(text, name)
-        if actual != expected:
-            failures.append(f"message {name}: got {actual!r}, lock requires {expected!r}")
-        else:
-            print(f"ok   message {name}")
+        for name, expected in lock.get("messages", {}).items():
+            message_count += 1
+            actual = _message(text, name)
+            if actual != expected:
+                failures.append(f"message {name}: got {actual!r}, lock requires {expected!r}")
+            else:
+                print(f"ok   message {name}")
 
     for failure in failures:
         print(f"FAIL {failure}", file=sys.stderr)
     if failures:
         return 1
     print(
-        f"\n{len(lock['enums'])} enums and {len(lock['messages'])} messages match the proto lock"
+        f"\n{enum_count} enums and {message_count} messages match the proto locks"
     )
     return 0
 

@@ -18,7 +18,12 @@
     "image_ref": { "type": "string" },
     "visual_ref": { "type": "string" },
     "level": { "type": "integer" },
-    "required_level": { "type": "integer" },
+    "required_level": {
+      "type": "integer",
+      "minimum": -2147483648,
+      "maximum": 2147483647,
+      "description": "Authored signed player-level gate. Classic 1.1 uses negative values for unrestricted items."
+    },
     "quality": { "$ref": "common.schema.json#/$defs/resourceRef" },
     "slot": { "$ref": "common.schema.json#/$defs/slug" },
     "item_class": { "$ref": "common.schema.json#/$defs/resourceRef" },
