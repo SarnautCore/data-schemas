@@ -1,0 +1,51 @@
+{
+  "messages": {
+    "Item": {
+      "category": {
+        "label": "singular",
+        "number": 3,
+        "type": "string"
+      },
+      "description_key": {
+        "label": "singular",
+        "number": 9,
+        "type": "string"
+      },
+      "id": {
+        "label": "singular",
+        "number": 1,
+        "type": "string"
+      },
+      "level": {
+        "label": "singular",
+        "number": 4,
+        "type": "uint32"
+      },
+      "name_key": {
+        "label": "singular",
+        "number": 2,
+        "type": "string"
+      },
+      "required_level": {
+        "label": "singular",
+        "number": 5,
+        "type": "int32"
+      },
+      "stack_limit": {
+        "label": "singular",
+        "number": 6,
+        "type": "int32"
+      },
+      "vendor_buy": {
+        "label": "singular",
+        "number": 8,
+        "type": "int64"
+      },
+      "vendor_sell": {
+        "label": "singular",
+        "number": 7,
+        "type": "int64"
+      }
+    }
+  }
+}
