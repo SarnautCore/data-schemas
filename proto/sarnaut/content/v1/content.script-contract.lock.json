@@ -1,0 +1,80 @@
+{
+  "source": "proto/sarnaut/content/v1/content.proto",
+  "enums": {
+    "CoverageTier": {
+      "COVERAGE_TIER_UNSPECIFIED": 0,
+      "COVERAGE_TIER_REFUSED": 1,
+      "COVERAGE_TIER_INERT": 2,
+      "COVERAGE_TIER_IMPLEMENTED": 3
+    },
+    "RowType": {
+      "ROW_TYPE_UNSPECIFIED": 0,
+      "ROW_TYPE_ZONE": 1,
+      "ROW_TYPE_PLACEMENT": 2,
+      "ROW_TYPE_SPAWN_TABLE": 3,
+      "ROW_TYPE_CHARGEN_OPTION": 4,
+      "ROW_TYPE_ABILITY": 5,
+      "ROW_TYPE_FACTION": 6,
+      "ROW_TYPE_MOB": 7,
+      "ROW_TYPE_ITEM": 8,
+      "ROW_TYPE_LOOT_TABLE": 9,
+      "ROW_TYPE_QUEST": 10,
+      "ROW_TYPE_ROUTE": 11,
+      "ROW_TYPE_LOCALE": 12,
+      "ROW_TYPE_MOB_KIND": 13,
+      "ROW_TYPE_LEVEL_CURVE": 14,
+      "ROW_TYPE_QUEST_SCRIPT": 15,
+      "ROW_TYPE_SCRIPT_TRIGGER": 16
+    }
+  },
+  "messages": {
+    "Decimal": {
+      "mantissa": {"type": "sint64", "number": 1, "label": "singular"},
+      "scale": {"type": "sint32", "number": 2, "label": "singular"}
+    },
+    "ContentRef": {
+      "id": {"type": "string", "number": 1, "label": "singular"},
+      "row_type": {"type": "string", "number": 2, "label": "singular"}
+    },
+    "ScriptNode": {
+      "node_key": {"type": "string", "number": 1, "label": "singular"},
+      "family": {"type": "string", "number": 2, "label": "singular"},
+      "opcode": {"type": "string", "number": 3, "label": "singular"},
+      "tier": {"type": "CoverageTier", "number": 4, "label": "singular"},
+      "fields": {"type": "ScriptField", "number": 5, "label": "repeated"}
+    },
+    "ScriptField": {
+      "name": {"type": "string", "number": 1, "label": "singular"},
+      "value": {"type": "ScriptValue", "number": 2, "label": "singular"}
+    },
+    "ScriptValue": {
+      "integer": {"type": "sint64", "number": 1, "label": "singular", "oneof": "value"},
+      "decimal": {"type": "Decimal", "number": 2, "label": "singular", "oneof": "value"},
+      "boolean": {"type": "bool", "number": 3, "label": "singular", "oneof": "value"},
+      "text": {"type": "string", "number": 4, "label": "singular", "oneof": "value"},
+      "reference": {"type": "ContentRef", "number": 5, "label": "singular", "oneof": "value"},
+      "duration_ms": {"type": "uint64", "number": 6, "label": "singular", "oneof": "value"},
+      "node": {"type": "ScriptNode", "number": 7, "label": "singular", "oneof": "value"},
+      "list": {"type": "ScriptValueList", "number": 8, "label": "singular", "oneof": "value"}
+    },
+    "ScriptValueList": {
+      "values": {"type": "ScriptValue", "number": 1, "label": "repeated"}
+    },
+    "QuestCounterBinding": {
+      "count_id": {"type": "string", "number": 1, "label": "singular"},
+      "objective_index": {"type": "uint32", "number": 2, "label": "singular"},
+      "objective_id": {"type": "string", "number": 3, "label": "singular"}
+    },
+    "QuestScript": {
+      "id": {"type": "string", "number": 1, "label": "singular"},
+      "quest_id": {"type": "string", "number": 2, "label": "singular"},
+      "counters": {"type": "QuestCounterBinding", "number": 3, "label": "repeated"},
+      "start_impacts": {"type": "ScriptNode", "number": 4, "label": "repeated"},
+      "trigger_agents": {"type": "ScriptNode", "number": 5, "label": "repeated"}
+    },
+    "ScriptTrigger": {
+      "id": {"type": "string", "number": 1, "label": "singular"},
+      "root": {"type": "ScriptNode", "number": 2, "label": "singular"}
+    }
+  }
+}

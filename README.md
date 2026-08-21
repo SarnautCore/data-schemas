@@ -33,7 +33,8 @@ not point into `Demo/`.
   JSON Schema stays authoritative for the authored YAML; these describe the
   compiled row shape. The pack writer in `tools` and the reader in `server` each
   vendor a copy of this directory for a hermetic build, and those copies must
-  stay identical to it.
+  stay identical to it. `content.script-contract.lock.json` records the field
+  names, numbers, cardinalities and oneof membership of ADR 0036's rows.
 - `scripts/`: the checks CI runs.
 
 ## Schema inventory
@@ -46,6 +47,8 @@ That is an identifier namespace, not a website: nothing fetches it.
 | `common.schema.json` | none — shared `$defs` only | n/a |
 | `item.schema.json` | `item.*` | no |
 | `quest.schema.json` | `quest.*` | **yes** |
+| `quest-script.schema.json` | `script.*` | **yes** |
+| `script-trigger.schema.json` | `trigger.*` | **yes** |
 | `route.schema.json` | `route.*` | **yes** |
 | `spawn.schema.json` | `spawn.*` (tables, placements), `mob.*` | **yes** |
 | `zone.schema.json` | `zone.*` | is the zone |
@@ -95,11 +98,26 @@ must assign distinct ids.
 puts `starting_abilities` on the chargen document and requires those ids to resolve.
 Full ability and spell extraction is queued per ADR 0003.
 
+`quest-script.schema.json` and `script-trigger.schema.json` carry the first
+ADR 0036 script rows. The YAML node uses `key`; the pack writer maps it to
+`ScriptNode.node_key`. Likewise, quest-script `quest` and counter `objective`
+map to `quest_id` and `objective_index`. Each counter also carries M3-08's
+stable `objective_id`; the index remains migration compatibility and a useful
+diagnostic, while the ID is durable authority. References may retain an `href`
+in the private YAML as provenance, but only `id` and `row_type` enter `ContentRef`.
+An unknown opcode is valid. Its required tier says whether the evaluator runs,
+counts without running, or refuses it.
+
+JSON Schema enforces the ScriptValue one-member union. The separate
+`check_script_contract.py` check enforces row-wide rules that draft 2020-12
+cannot express: bytewise-sorted unique field names, row-owned unique node keys,
+a maximum depth of 32 and no more than 4096 nodes per row.
+
 ## The zone-free base
 
 `common.schema.json` holds the vocabulary every document type shares: `slug`,
 `canonicalId`, `zoneId`, `locKey`, `resourceRef`, `source`, `base`, `position`,
-`orientation` and `statEntry`.
+`orientation`, `statEntry` and the recursive script definitions.
 
 `$defs.base` carries `schema_version`, `id`, `source_type` and `_source`, and
 **no `zone`**. Mob kinds, loot tables, factions, locales, chargen options and
@@ -130,13 +148,15 @@ The extractor validates generated YAML before writing when invoked with
 `scripts/check_references.py` reports dangling references and must report zero.
 What counts as an edge:
 
-- A `{id, href}` resource ref **that carries an `id`**. `href` alone means the
+- A resource ref that carries an `id`. `href` alone means the
   extractor has not mapped that source path to a canonical id yet; those are
   counted and printed, never failed, because an unmapped ref is honest about
   coverage while a wrong id is not.
-- A canonical id written inline in `zone`, `zone_id`, `route`, `item_id` or
-  `faction`, and every entry of `prototype_chain`, `starting_abilities` and
-  `starting_quests`.
+- A canonical id written inline in `zone`, `zone_id`, `quest`, `route`,
+  `item_id` or `faction`, and every entry of `prototype_chain`,
+  `starting_abilities` and `starting_quests`.
+- A `QuestCountId` declared by a quest-script counter binding. M3-09 embeds
+  these ids; there is no standalone quest-count-id row yet.
 - Every string under a `loc_ref`, which must be supplied by a locale document.
 
 `race` and `class` on a chargen document are canonical ids but are **not** edges:
@@ -154,10 +174,14 @@ slugs naming a map the zone declares.
 python -m pip install -r scripts/requirements.txt
 python scripts/validate_schemas.py      # schemas vs. the draft 2020-12 meta-schema
 python scripts/validate_demo.py         # demo documents vs. their schema
+python scripts/check_script_contract.py # recursive script row invariants
 python scripts/check_references.py      # dangling references and cross-field invariants
 python scripts/check_negative.py        # fixtures that must be rejected
+python scripts/check_proto_contract.py  # protoc compile plus locked field map
 python scripts/check_no_private_data.py # clean-room guard
 ```
+
+`check_proto_contract.py` requires `protoc` on `PATH`.
 
 A demo document is routed to its schema by the first segment of its `id`, via
 `SCHEMA_BY_ID_PREFIX` in `scripts/_common.py`. `validate_demo.py` fails if any

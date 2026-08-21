@@ -1,0 +1,14 @@
+# Rejected: a shared-trigger root is family trigger, opcode TriggerResource.
+schema_version: 1
+id: trigger.paper-harbor.wrong-root
+zone: zone.paper-harbor
+source_type: demo.TriggerResource
+root:
+  key: trigger.paper-harbor.wrong-root
+  family: effect
+  opcode: Switch
+  tier: implemented
+_source:
+  path: Demo/Negative/Trigger.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

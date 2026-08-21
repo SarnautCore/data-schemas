@@ -1,0 +1,20 @@
+# Rejected by the ADR 0036 invariant check: fields sort bytewise by name.
+schema_version: 1
+id: script.paper-harbor.unsorted-fields
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+start_impacts:
+  - key: script.paper-harbor.unsorted-fields/startImpacts[0]
+    family: impact
+    opcode: DemoImpact
+    tier: inert-and-counted
+    fields:
+      - name: z-last
+        value: {integer: 1}
+      - name: a-first
+        value: {integer: 2}
+_source:
+  path: Demo/Negative/QuestScript.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

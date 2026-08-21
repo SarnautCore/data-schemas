@@ -51,7 +51,9 @@ SCHEMA_BY_ID_PREFIX: dict[str, str] = {
     "mobquality": "mobkind",
     "quest": "quest",
     "route": "route",
+    "script": "quest-script",
     "spawn": "spawn",
+    "trigger": "script-trigger",
     "zone": "zone",
 }
 
