@@ -1,0 +1,13 @@
+# Rejected: objective array position is not a durable identity.
+schema_version: 1
+id: quest.paper-harbor.missing-objective-id
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+objectives:
+  - kind: quest-count-kill
+    limit: 1
+rewards: {}
+_source:
+  path: Demo/Negative/MissingObjectiveId.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

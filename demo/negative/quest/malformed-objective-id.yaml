@@ -1,0 +1,14 @@
+# Rejected: objective ids end with a full BLAKE3 digest.
+schema_version: 1
+id: quest.paper-harbor.malformed-objective-id
+zone: zone.paper-harbor
+source_type: demo.QuestResource
+objectives:
+  - objective_id: quest.paper-harbor.someone-else.objective.short
+    kind: quest-count-kill
+    limit: 1
+rewards: {}
+_source:
+  path: Demo/Negative/MalformedObjectiveId.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

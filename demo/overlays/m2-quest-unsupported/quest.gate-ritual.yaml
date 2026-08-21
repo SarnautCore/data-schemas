@@ -26,7 +26,8 @@ objectives:
   # firing against a named counter, and the impact system is deferred per
   # ADR 0003, so mechanics/quests.md rule 5.5.6 makes the shard refuse the
   # whole definition at content-load and name it.
-  - kind: quest-count-special
+  - objective_id: quest.paper-harbor.gate-ritual.objective.6666666666666666666666666666666666666666666666666666666666666666
+    kind: quest-count-special
     loc_ref: GateRitual.Counter.txt
     limit: 1
     internal: true

@@ -20,7 +20,8 @@ objectives:
   # One kill, not three: this is the quest the M2 slice driver plays end to
   # end, and the driver kills the tide crab once. The three-kill case lives on
   # quest.paper-harbor.mossy-gate, which nothing has to walk through.
-  - kind: quest-count-kill
+  - objective_id: quest.paper-harbor.tide-tally.objective.3333333333333333333333333333333333333333333333333333333333333333
+    kind: quest-count-kill
     loc_ref: TideTally.Counter.txt
     limit: 1
     internal: false

@@ -22,7 +22,8 @@ objectives:
   # makes it the only kind that can regress (rule 5.5.4 and transition T10).
   # The League warrior starts with three harbor tonics, so a fresh character
   # accepts this quest already at two of two.
-  - kind: quest-count-item
+  - objective_id: quest.paper-harbor.tonic-tithe.objective.5555555555555555555555555555555555555555555555555555555555555555
+    kind: quest-count-item
     loc_ref: TonicTithe.Counter.txt
     limit: 2
     internal: false
