@@ -1,0 +1,22 @@
+# Rejected: DestinationLocator references use the bare product map slug. The
+# private extractor may preserve this source-derived id only as provenance.
+schema_version: 1
+id: script.paper-harbor.source-map-id
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+start_impacts:
+  - key: script.paper-harbor.source-map-id/startImpacts[0]
+    family: impact
+    opcode: DemoLocatorImpact
+    tier: inert-and-counted
+    fields:
+      - name: map
+        value:
+          reference:
+            id: ext.maps.inst-league-start.map-resource
+            row_type: map
+_source:
+  path: Demo/Negative/QuestScript.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

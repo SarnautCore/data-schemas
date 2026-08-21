@@ -1,0 +1,15 @@
+# Rejected: locator rows cannot inherit a map_id without map_resource.
+schema_version: 1
+id: spawn.paper-harbor.placements.locator-missing-map-resource
+kind: placements
+zone: zone.paper-harbor
+map: paper-harbor
+source_type: demo.PatchObjects
+placements: []
+locators:
+  - script_id: HarborExit
+    position: {x: 1.0, y: 2.0, z: 3.0}
+_source:
+  path: Demo/Negative/Locators.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

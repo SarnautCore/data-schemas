@@ -122,13 +122,17 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["schema_version", "id", "kind", "zone", "map", "source_type", "placements", "_source"],
+          "required": ["schema_version", "id", "kind", "zone", "map", "map_resource", "source_type", "placements", "locators", "_source"],
           "properties": {
             "schema_version": true,
             "id": true,
             "kind": { "const": "placements" },
             "zone": true,
             "map": { "$ref": "common.schema.json#/$defs/slug" },
+            "map_resource": {
+              "description": "Canonical product map identity inherited by every compiled MapLocator row. This is a slug such as inst-league-start, never a source href.",
+              "$ref": "common.schema.json#/$defs/slug"
+            },
             "source_type": true,
             "placements": {
               "type": "array",
@@ -152,6 +156,27 @@
                   { "required": ["position"] },
                   { "required": ["route"] }
                 ]
+              }
+            },
+            "locators": {
+              "description": "Named points from the same PatchObjects document, already transformed into the global frame. A locator's identity is (map_resource, script_id).",
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["script_id", "position"],
+                "properties": {
+                  "script_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "allOf": [
+                      { "not": { "pattern": "[/\\\\]" } },
+                      { "not": { "pattern": "[\\u0000-\\u001F\\u007F]" } }
+                    ]
+                  },
+                  "position": { "$ref": "common.schema.json#/$defs/position" }
+                }
               }
             },
             "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },

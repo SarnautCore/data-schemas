@@ -34,7 +34,8 @@ not point into `Demo/`.
   compiled row shape. The pack writer in `tools` and the reader in `server` each
   vendor a copy of this directory for a hermetic build, and those copies must
   stay identical to it. `content.script-contract.lock.json` records the field
-  names, numbers, cardinalities and oneof membership of ADR 0036's rows.
+  names, numbers, cardinalities and oneof membership of the script and locator
+  rows added during M3.
 - `scripts/`: the checks CI runs.
 
 ## Schema inventory
@@ -113,6 +114,16 @@ JSON Schema enforces the ScriptValue one-member union. The separate
 cannot express: bytewise-sorted unique field names, row-owned unique node keys,
 a maximum depth of 32 and no more than 4096 nodes per row.
 
+Placement documents carry `map_resource`, the canonical product map slug, and
+a `locators` list. Each locator is a non-empty `script_id` plus a global-frame
+position. The compiled `MapLocator` row copies `map_resource` to `map_id`.
+Its table is `map-locators.sptbl`, row type 17, and its exact row key is
+`<map_id>/<script_id>`. Both key components exclude slash, backslash and
+control characters. The placement contract rejects duplicate script IDs even
+when their positions differ. A DestinationLocator map reference uses the same
+bare product slug with `row_type: map`; the runtime never parses an `ext.*`
+source-derived identifier.
+
 ## The zone-free base
 
 `common.schema.json` holds the vocabulary every document type shares: `slug`,
@@ -174,6 +185,7 @@ slugs naming a map the zone declares.
 python -m pip install -r scripts/requirements.txt
 python scripts/validate_schemas.py      # schemas vs. the draft 2020-12 meta-schema
 python scripts/validate_demo.py         # demo documents vs. their schema
+python scripts/check_placement_contract.py # map locator identity invariants
 python scripts/check_script_contract.py # recursive script row invariants
 python scripts/check_references.py      # dangling references and cross-field invariants
 python scripts/check_negative.py        # fixtures that must be rejected

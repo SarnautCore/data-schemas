@@ -44,6 +44,9 @@ jobs:
       - name: Check recursive script row invariants
         run: python scripts/check_script_contract.py
 
+      - name: Check map locator identity invariants
+        run: python scripts/check_placement_contract.py
+
       - name: Check the demo reference graph
         run: python scripts/check_references.py
 

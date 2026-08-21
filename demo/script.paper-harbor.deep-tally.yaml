@@ -57,6 +57,13 @@ start_impacts:
                 family: impact
                 opcode: DemoPresentationPulse
                 tier: inert-and-counted
+                fields:
+                  - name: map
+                    value:
+                      reference:
+                        id: tide-steps
+                        row_type: map
+                        href: /Demo/Maps/TideSteps/MapResource.xdb#map
 trigger_agents:
   - key: script.paper-harbor.deep-tally/triggerAgents[0]
     family: trigger

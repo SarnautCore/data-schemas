@@ -19,6 +19,7 @@ from _common import (
     negative_fixtures,
     validators,
 )
+from _placement_contract import placement_invariant_errors
 from _script_contract import script_invariant_errors
 
 REQUIRED_FIXTURES = ("unknown-property", "malformed-id")
@@ -37,14 +38,17 @@ def main() -> int:
             continue
         seen.setdefault(stem, set()).add(fixture.path.stem)
         schema_errors = list(compiled[stem].iter_errors(fixture.data))
-        invariant_errors = script_invariant_errors(fixture) if not schema_errors else []
+        invariant_errors = []
+        if not schema_errors:
+            invariant_errors.extend(script_invariant_errors(fixture))
+            invariant_errors.extend(placement_invariant_errors(fixture))
         if schema_errors:
             print(
                 f"ok   {fixture.rel}  rejected by {stem}.schema.json: "
                 f"{schema_errors[0].message[:96]}"
             )
         elif invariant_errors:
-            print(f"ok   {fixture.rel}  rejected by script contract: {invariant_errors[0][:96]}")
+            print(f"ok   {fixture.rel}  rejected by document contract: {invariant_errors[0][:96]}")
         else:
             failures.append(
                 f"{fixture.rel}: accepted by {stem}.schema.json and its row invariants, "

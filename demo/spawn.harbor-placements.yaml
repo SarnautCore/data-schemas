@@ -3,6 +3,7 @@ id: spawn.paper-harbor.placements.harbor-green
 kind: placements
 zone: zone.paper-harbor
 map: paper-harbor
+map_resource: paper-harbor
 source_type: demo.MapPlacements
 placements:
   - id: placement.paper-harbor.sparrow-1
@@ -43,6 +44,7 @@ placements:
     respawn_delay_ms:
       min: 10000
       max: 14000
+locators: []
 _source:
   path: Demo/Maps/PaperHarbor/Placements/HarborGreen.xdb
   blake3: "5555555555555555555555555555555555555555555555555555555555555555"

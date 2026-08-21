@@ -1,0 +1,15 @@
+# Rejected: every map locator needs the authored script hook name.
+schema_version: 1
+id: spawn.paper-harbor.placements.locator-missing-script-id
+kind: placements
+zone: zone.paper-harbor
+map: paper-harbor
+map_resource: paper-harbor
+source_type: demo.PatchObjects
+placements: []
+locators:
+  - position: {x: 1.0, y: 2.0, z: 3.0}
+_source:
+  path: Demo/Negative/Locators.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

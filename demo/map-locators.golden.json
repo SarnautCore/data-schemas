@@ -1,0 +1,10 @@
+{
+  "rows": [
+    {
+      "row_key": "tide-steps/TideStepsGreeter",
+      "map_id": "tide-steps",
+      "script_id": "TideStepsGreeter",
+      "position": {"x": -1.5, "y": 7.25, "z": 1.5}
+    }
+  ]
+}
