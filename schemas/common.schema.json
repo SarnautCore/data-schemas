@@ -121,15 +121,25 @@
       }
     },
     "scriptReference": {
-      "description": "A resolved script reference. id and row_type become ContentRef in the compiled pack. href is private YAML provenance and the pack compiler drops it.",
+      "description": "A resolved script reference. id and row_type become ContentRef in the compiled pack. Most ids are dotted canonical content ids; row_type map uses the bare product map slug so DestinationLocator matches MapLocator. href is private YAML provenance and the pack compiler drops it.",
       "type": "object",
       "additionalProperties": false,
       "required": ["id"],
       "properties": {
-        "id": { "$ref": "#/$defs/canonicalId" },
+        "id": { "type": "string", "minLength": 1 },
         "row_type": { "$ref": "#/$defs/slug" },
         "href": { "type": "string", "minLength": 1 }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["row_type"],
+            "properties": { "row_type": { "const": "map" } }
+          },
+          "then": { "properties": { "id": { "$ref": "#/$defs/slug" } } },
+          "else": { "properties": { "id": { "$ref": "#/$defs/canonicalId" } } }
+        }
+      ]
     },
     "scriptValue": {
       "description": "One member of the ScriptValue union. The one-property limit makes zero-member and multi-member values schema errors before pack compilation.",

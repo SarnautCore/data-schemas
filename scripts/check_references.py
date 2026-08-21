@@ -34,6 +34,7 @@ import sys
 from typing import Any, Iterator
 
 from _common import Document, demo_documents
+from _placement_contract import placement_invariant_errors
 
 # Fields whose string value is a canonical id pointing at another document.
 REF_STRING_FIELDS = frozenset({"faction", "item_id", "quest", "route", "zone", "zone_id"})
@@ -124,6 +125,7 @@ def check_loot_node(node: Any, pointer: str, problems: list[str], rel: str, dept
 def check_invariants(documents: list[Document], by_id: dict[str, Document]) -> list[str]:
     problems: list[str] = []
     zone_maps: dict[str, set[str]] = {}
+    locator_keys: dict[str, Document] = {}
 
     for document in documents:
         data = document.data
@@ -167,6 +169,21 @@ def check_invariants(documents: list[Document], by_id: dict[str, Document]) -> l
             for key in duplicates:
                 problems.append(f"{document.rel}: duplicate locale key {key!r}")
 
+        problems.extend(
+            f"{document.rel}: {error}" for error in placement_invariant_errors(document)
+        )
+        if data.get("kind") == "placements" and isinstance(data.get("map_resource"), str):
+            for locator in data.get("locators") or []:
+                if not isinstance(locator, dict) or not isinstance(locator.get("script_id"), str):
+                    continue
+                key = f"{data['map_resource']}/{locator['script_id']}"
+                if key in locator_keys:
+                    problems.append(
+                        f"{document.rel}: map locator key {key!r} is already declared by "
+                        f"{locator_keys[key].rel}"
+                    )
+                locator_keys[key] = document
+
     # Map slugs on zone-scoped documents must name a map the zone declares.
     for document in documents:
         data = document.data
@@ -203,6 +220,11 @@ def main() -> int:
     # QuestScript rows. They are valid ContentRef targets even though this
     # schema version has no standalone quest-count-id document.
     known_ids = set(by_id)
+    for document in documents:
+        data = document.data
+        if not isinstance(data, dict) or not (document.doc_id or "").startswith("zone."):
+            continue
+        known_ids.update(item for item in data.get("maps") or [] if isinstance(item, str))
     count_owners: dict[str, Document] = {}
     for document in documents:
         data = document.data

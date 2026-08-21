@@ -3,6 +3,7 @@ id: spawn.paper-harbor.placements.quest-green
 kind: placements
 zone: zone.paper-harbor
 map: paper-harbor
+map_resource: paper-harbor
 source_type: demo.MapPlacements
 placements:
   # The quest giver stands three metres from where the M2 slice driver's
@@ -24,6 +25,7 @@ placements:
       pitch: 0.0
       roll: 0.0
     spawn_time: once
+locators: []
 _source:
   path: Demo/Maps/PaperHarbor/Placements/QuestGreen.xdb
   blake3: "9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c"

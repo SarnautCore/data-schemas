@@ -24,7 +24,8 @@
       "ROW_TYPE_MOB_KIND": 13,
       "ROW_TYPE_LEVEL_CURVE": 14,
       "ROW_TYPE_QUEST_SCRIPT": 15,
-      "ROW_TYPE_SCRIPT_TRIGGER": 16
+      "ROW_TYPE_SCRIPT_TRIGGER": 16,
+      "ROW_TYPE_MAP_LOCATOR": 17
     }
   },
   "messages": {
@@ -75,6 +76,11 @@
     "ScriptTrigger": {
       "id": {"type": "string", "number": 1, "label": "singular"},
       "root": {"type": "ScriptNode", "number": 2, "label": "singular"}
+    },
+    "MapLocator": {
+      "map_id": {"type": "string", "number": 1, "label": "singular"},
+      "script_id": {"type": "string", "number": 2, "label": "singular"},
+      "position": {"type": "Vec3", "number": 3, "label": "singular"}
     }
   }
 }

@@ -3,6 +3,7 @@ id: spawn.paper-harbor.placements.tide-steps
 kind: placements
 zone: zone.paper-harbor
 map: tide-steps
+map_resource: tide-steps
 source_type: demo.PatchObjects
 placements:
   # Resolves through the copper-sparrows table.
@@ -31,6 +32,9 @@ placements:
     position: { x: 40.0, y: 40.0, z: 1.5 }
     orientation: { yaw: 3.5, pitch: 0.0, roll: 0.0 }
     spawn_time: time-never
+locators:
+  - script_id: TideStepsGreeter
+    position: { x: -1.5, y: 7.25, z: 1.5 }
 _source:
   path: Demo/Maps/PaperHarbor/TideSteps/Placements.xdb
   blake3: "3333333333333333333333333333333333333333333333333333333333333333"

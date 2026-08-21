@@ -7,6 +7,7 @@ curation_note: >-
 kind: placements
 zone: zone.paper-harbor
 map: paper-harbor
+map_resource: paper-harbor
 source_type: demo.MapPlacements
 placements:
   - id: placement.paper-harbor.reef-lurker-1
@@ -21,6 +22,7 @@ placements:
     respawn_delay_ms:
       min: 4000
       max: 6000
+locators: []
 _source:
   path: Demo/Maps/PaperHarbor/Placements/ReefShelf.xdb
   blake3: "0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e"
