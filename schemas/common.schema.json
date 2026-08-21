@@ -102,6 +102,15 @@
         "value": { "type": "number" }
       }
     },
+    "exactStatEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stat", "value"],
+      "properties": {
+        "stat": { "$ref": "#/$defs/slug" },
+        "value": { "$ref": "#/$defs/scriptDecimal" }
+      }
+    },
     "scriptDecimal": {
       "description": "An exact signed mantissa and base-10 scale. The value is mantissa * 10^-scale; script decimals never cross the pack boundary as binary floating point.",
       "type": "object",

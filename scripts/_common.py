@@ -38,6 +38,7 @@ SHARED_SCHEMAS = frozenset({"common"})
 # table, a mob template or a placement list, and the creature taxonomy under
 # /Mechanics is three related record types in one file.
 SCHEMA_BY_ID_PREFIX: dict[str, str] = {
+    "action": "native-action",
     "ability": "ability",
     "chargen": "chargen",
     "faction": "faction",
@@ -49,6 +50,7 @@ SCHEMA_BY_ID_PREFIX: dict[str, str] = {
     "mobclass": "mobkind",
     "mobkind": "mobkind",
     "mobquality": "mobkind",
+    "progression": "player-progression",
     "quest": "quest",
     "route": "route",
     "script": "quest-script",

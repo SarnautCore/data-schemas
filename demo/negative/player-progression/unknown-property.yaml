@@ -1,0 +1,13 @@
+schema_version: 1
+id: progression.demo.broken
+source_type: demo.PlayerProgression
+max_level: 1
+respawn_delay_ms: 0
+resurrection_sickness_duration_ms: 0
+thresholds: [{ level: 1, cumulative_experience: 0 }]
+experience_impacts: []
+unexpected: true
+_source:
+  path: Demo/Broken.xdb
+  blake3: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  extractor: sarnaut-extract@0.1.0

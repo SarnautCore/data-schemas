@@ -1,0 +1,19 @@
+schema_version: 1
+id: progression.demo.avatar
+source_type: demo.PlayerProgression
+max_level: 2
+respawn_delay_ms: 1000
+resurrection_sickness_duration_ms: 5000
+thresholds:
+  - { level: 1, cumulative_experience: 0 }
+  - { level: 2, cumulative_experience: 100 }
+experience_impacts:
+  - id: impact.demo.mob-pack
+    mob_count: 2
+    mob_level: 1
+    resolved_experience: 20
+_source:
+  path: Demo/ExperienceTable.xdb
+  blake3: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+  extractor: sarnaut-extract@0.1.0
+  source_root: demo
