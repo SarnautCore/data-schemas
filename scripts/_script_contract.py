@@ -15,6 +15,97 @@ MAX_SCRIPT_NODE_DEPTH = 32
 MAX_SCRIPT_ROW_NODES = 4096
 
 
+def _field_map(node: dict[str, Any]) -> dict[str, Any]:
+    fields = node.get("fields") or []
+    if not isinstance(fields, list):
+        return {}
+    return {
+        field.get("name"): field.get("value")
+        for field in fields
+        if isinstance(field, dict) and isinstance(field.get("name"), str)
+    }
+
+
+def _value_is(value: Any, member: str) -> bool:
+    return isinstance(value, dict) and set(value) == {member}
+
+
+def _audited_opcode_errors(node: dict[str, Any], pointer: str) -> list[str]:
+    """Validate canonical fields for opcodes promoted by the M3 audit."""
+    opcode = node.get("opcode")
+    fields = _field_map(node)
+    names = list(fields)
+    errors: list[str] = []
+
+    def want(expected: list[str]) -> None:
+        if names != expected:
+            errors.append(f"{pointer}/fields: {opcode} fields {names!r}, expected {expected!r}")
+
+    if opcode == "DestinationLocator":
+        want(["locator", "yaw"])
+        locator_value = fields.get("locator")
+        locator = locator_value.get("node") if _value_is(locator_value, "node") else None
+        if not isinstance(locator, dict):
+            errors.append(f"{pointer}/fields/locator: expected MapPointer node")
+        else:
+            locator_fields = _field_map(locator)
+            if (
+                locator.get("family") != "basic"
+                or locator.get("opcode") != "Struct"
+                or list(locator_fields) != ["map", "scriptID"]
+            ):
+                errors.append(f"{pointer}/fields/locator: expected MapPointer<Locator>")
+            map_value = locator_fields.get("map")
+            map_ref = map_value.get("reference") if _value_is(map_value, "reference") else None
+            if not isinstance(map_ref, dict) or map_ref.get("row_type") != "map-resource":
+                errors.append(f"{pointer}/fields/locator/map: expected map-resource reference")
+            script_id = locator_fields.get("scriptID")
+            if not _value_is(script_id, "text") or not script_id.get("text"):
+                errors.append(f"{pointer}/fields/locator/scriptID: expected nonempty text")
+        if not _value_is(fields.get("yaw"), "integer"):
+            errors.append(f"{pointer}/fields/yaw: expected integer")
+    elif opcode == "Guard":
+        want(["noticeTarget", "scanRadius"])
+        if not _value_is(fields.get("noticeTarget"), "boolean"):
+            errors.append(f"{pointer}/fields/noticeTarget: expected boolean")
+        if not _value_is(fields.get("scanRadius"), "decimal"):
+            errors.append(f"{pointer}/fields/scanRadius: expected exact decimal")
+    elif opcode == "PredicateIsAvatar":
+        want([])
+    elif opcode == "ScalerAllInputDamage":
+        want(["attackerConditions", "onlyFromCaster", "scaler", "stackCount"])
+        if not _value_is(fields.get("attackerConditions"), "list"):
+            errors.append(f"{pointer}/fields/attackerConditions: expected list")
+        if not _value_is(fields.get("onlyFromCaster"), "boolean"):
+            errors.append(f"{pointer}/fields/onlyFromCaster: expected boolean")
+        errors.extend(_scaler_errors(fields.get("scaler"), f"{pointer}/fields/scaler"))
+        stack_count = fields.get("stackCount")
+        if not _value_is(stack_count, "integer") or stack_count.get("integer", 0) < 1:
+            errors.append(f"{pointer}/fields/stackCount: expected positive integer")
+    elif opcode == "ScalerAllOutputDamage":
+        if names not in (["scaler", "stackCount"], ["group", "scaler", "stackCount"]):
+            errors.append(
+                f"{pointer}/fields: {opcode} fields {names!r}, expected optional group then scaler and stackCount"
+            )
+        group = fields.get("group")
+        if group is not None and not (
+            _value_is(group, "reference") or _value_is(group, "text")
+        ):
+            errors.append(f"{pointer}/fields/group: expected reference or group id")
+        errors.extend(_scaler_errors(fields.get("scaler"), f"{pointer}/fields/scaler"))
+        stack_count = fields.get("stackCount")
+        if not _value_is(stack_count, "integer") or stack_count.get("integer", 0) < 1:
+            errors.append(f"{pointer}/fields/stackCount: expected positive integer")
+    return errors
+
+
+def _scaler_errors(value: Any, pointer: str) -> list[str]:
+    scaler = value.get("node") if _value_is(value, "node") else None
+    if not isinstance(scaler, dict) or scaler.get("family") != "scaler":
+        return [f"{pointer}: expected scaler node"]
+    return []
+
+
 def _roots(data: dict[str, Any]) -> list[tuple[str, Any]]:
     doc_id = data.get("id", "")
     if isinstance(doc_id, str) and doc_id.startswith("script."):
@@ -81,6 +172,7 @@ def script_invariant_errors(document: Document) -> list[str]:
         nonlocal node_count
         if not isinstance(node, dict):
             return
+        errors.extend(_audited_opcode_errors(node, pointer))
         node_count += 1
         if depth > MAX_SCRIPT_NODE_DEPTH:
             errors.append(

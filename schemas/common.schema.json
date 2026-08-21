@@ -169,7 +169,7 @@
       }
     },
     "scriptNode": {
-      "description": "ADR 0036's recursive script node. Fields are bytewise-sorted by name and node keys are unique within their row; scripts/check_script_contract.py enforces those cross-item rules.",
+      "description": "ADR 0036's recursive script node. Fields are bytewise-sorted by name and node keys are unique within their row; scripts/check_script_contract.py enforces those cross-item rules and the canonical audited-opcode field contracts.",
       "type": "object",
       "additionalProperties": false,
       "required": ["key", "family", "opcode", "tier"],
