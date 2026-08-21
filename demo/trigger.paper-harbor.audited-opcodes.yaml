@@ -1,0 +1,98 @@
+schema_version: 1
+id: trigger.paper-harbor.audited-opcodes
+zone: zone.paper-harbor
+source_type: demo.TriggerResource
+root:
+  key: trigger.paper-harbor.audited-opcodes
+  family: trigger
+  opcode: TriggerResource
+  tier: implemented
+  fields:
+    - name: effects
+      value:
+        list:
+          - node:
+              key: trigger.paper-harbor.audited-opcodes/effects[0]
+              family: impact
+              opcode: DestinationLocator
+              tier: implemented
+              fields:
+                - name: locator
+                  value:
+                    node:
+                      key: trigger.paper-harbor.audited-opcodes/effects[0]/locator
+                      family: basic
+                      opcode: Struct
+                      tier: inert-and-counted
+                      fields:
+                        - name: map
+                          value:
+                            reference:
+                              id: zone.paper-harbor
+                              row_type: map-resource
+                        - name: scriptID
+                          value: {text: Arrival}
+                - name: yaw
+                  value: {integer: 0}
+          - node:
+              key: trigger.paper-harbor.audited-opcodes/effects[1]
+              family: effect
+              opcode: Guard
+              tier: implemented
+              fields:
+                - name: noticeTarget
+                  value: {boolean: false}
+                - name: scanRadius
+                  value:
+                    decimal: {mantissa: 425, scale: 1}
+          - node:
+              key: trigger.paper-harbor.audited-opcodes/effects[2]
+              family: predicate
+              opcode: PredicateIsAvatar
+              tier: implemented
+          - node:
+              key: trigger.paper-harbor.audited-opcodes/effects[3]
+              family: effect
+              opcode: ScalerAllInputDamage
+              tier: implemented
+              fields:
+                - name: attackerConditions
+                  value: {list: []}
+                - name: onlyFromCaster
+                  value: {boolean: false}
+                - name: scaler
+                  value:
+                    node:
+                      key: trigger.paper-harbor.audited-opcodes/effects[3]/scaler
+                      family: scaler
+                      opcode: LinearEffectScaler
+                      tier: implemented
+                      fields:
+                        - name: coeff
+                          value:
+                            decimal: {mantissa: -9, scale: 1}
+                - name: stackCount
+                  value: {integer: 1}
+          - node:
+              key: trigger.paper-harbor.audited-opcodes/effects[4]
+              family: effect
+              opcode: ScalerAllOutputDamage
+              tier: implemented
+              fields:
+                - name: scaler
+                  value:
+                    node:
+                      key: trigger.paper-harbor.audited-opcodes/effects[4]/scaler
+                      family: scaler
+                      opcode: LinearEffectScaler
+                      tier: implemented
+                      fields:
+                        - name: coeff
+                          value:
+                            decimal: {mantissa: -5, scale: 1}
+                - name: stackCount
+                  value: {integer: 1}
+_source:
+  path: Demo/World/Quests/PaperHarbor/AuditedOpcodes.xdb
+  blake3: "c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2"
+  extractor: sarnaut-extract@0.1.0-demo

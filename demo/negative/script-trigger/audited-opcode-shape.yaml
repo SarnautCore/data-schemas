@@ -1,0 +1,26 @@
+# Rejected: PredicateIsAvatar is parameter-free; toLog is source-only metadata.
+schema_version: 1
+id: trigger.paper-harbor.invalid-avatar-predicate
+zone: zone.paper-harbor
+source_type: demo.TriggerResource
+root:
+  key: trigger.paper-harbor.invalid-avatar-predicate
+  family: trigger
+  opcode: TriggerResource
+  tier: implemented
+  fields:
+    - name: effects
+      value:
+        list:
+          - node:
+              key: trigger.paper-harbor.invalid-avatar-predicate/effects[0]
+              family: predicate
+              opcode: PredicateIsAvatar
+              tier: implemented
+              fields:
+                - name: toLog
+                  value: {boolean: false}
+_source:
+  path: Demo/Negative/InvalidAvatarPredicate.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

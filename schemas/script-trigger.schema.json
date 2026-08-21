@@ -16,6 +16,10 @@
     "zone": { "$ref": "common.schema.json#/$defs/zoneId" },
     "source_type": { "type": "string", "minLength": 1 },
     "resource_id": { "type": "integer", "minimum": 0 },
+    "entrypoint": {
+      "description": "True when map machinery outside the quest-script graph attaches this trigger, making it a reachability root.",
+      "type": "boolean"
+    },
     "root": {
       "allOf": [
         { "$ref": "common.schema.json#/$defs/scriptNode" },
