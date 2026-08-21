@@ -35,7 +35,7 @@ not point into `Demo/`.
   vendor a copy of this directory for a hermetic build, and those copies must
   stay identical to it. `content.script-contract.lock.json` records the field
   names, numbers, cardinalities and oneof membership of the script and locator
-  rows added during M3.
+  rows added during M3, plus the stable quest-objective contract they consume.
 - `scripts/`: the checks CI runs.
 
 ## Schema inventory

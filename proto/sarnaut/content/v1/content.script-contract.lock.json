@@ -37,6 +37,16 @@
       "id": {"type": "string", "number": 1, "label": "singular"},
       "row_type": {"type": "string", "number": 2, "label": "singular"}
     },
+    "QuestObjective": {
+      "kind": {"type": "QuestObjectiveKind", "number": 1, "label": "singular"},
+      "limit": {"type": "int32", "number": 2, "label": "singular"},
+      "target_ids": {"type": "string", "number": 3, "label": "repeated"},
+      "internal": {"type": "bool", "number": 4, "label": "singular"},
+      "show_count": {"type": "bool", "number": 5, "label": "singular"},
+      "counter_key": {"type": "string", "number": 6, "label": "singular"},
+      "remove_on_abandon": {"type": "bool", "number": 7, "label": "singular"},
+      "objective_id": {"type": "string", "number": 8, "label": "singular"}
+    },
     "ScriptNode": {
       "node_key": {"type": "string", "number": 1, "label": "singular"},
       "family": {"type": "string", "number": 2, "label": "singular"},
