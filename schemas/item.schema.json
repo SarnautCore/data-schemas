@@ -30,6 +30,10 @@
     "item_category": { "$ref": "common.schema.json#/$defs/resourceRef" },
     "binding": { "$ref": "common.schema.json#/$defs/slug" },
     "stack_limit": { "type": "integer", "minimum": 0 },
+    "curse_eligible": {
+      "description": "Resolved result of the ruleset CursedItems.canBeCursed predicate for this item.",
+      "type": "boolean"
+    },
     "vendor_price": {
       "type": "object",
       "additionalProperties": false,

@@ -76,6 +76,36 @@
       "type": "array",
       "items": { "$ref": "common.schema.json#/$defs/statEntry" }
     },
+    "stats": {
+      "description": "Typed first-spawn state and the exact inputs needed to reproduce retail action scalers. Enabled product options must carry this block; the compiler enforces that migration rule.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["health", "max_health", "resource", "innate", "armor", "resistances", "hit_dice", "mana_dice", "mainhand", "ranged"],
+      "properties": {
+        "health": { "type": "integer", "minimum": 1 },
+        "max_health": { "type": "integer", "minimum": 1 },
+        "resource": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "initial", "maximum"],
+          "properties": {
+            "kind": { "$ref": "common.schema.json#/$defs/slug" },
+            "initial": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+            "maximum": { "$ref": "common.schema.json#/$defs/scriptDecimal" }
+          }
+        },
+        "innate": { "type": "array", "minItems": 1, "items": { "$ref": "common.schema.json#/$defs/exactStatEntry" } },
+        "armor": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "resistances": { "type": "array", "minItems": 1, "items": { "$ref": "common.schema.json#/$defs/exactStatEntry" } },
+        "hit_dice": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "mana_dice": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "base_stat_value": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "weapon_dps_default": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "fairy_scaler": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "mainhand": { "$ref": "#/$defs/weaponProfile" },
+        "ranged": { "$ref": "#/$defs/weaponProfile" }
+      }
+    },
     "starting_loadout": {
       "type": "array",
       "items": {
@@ -102,6 +132,22 @@
         "pattern": "^ability(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$"
       }
     },
+    "starting_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action_id"],
+        "properties": {
+          "slot_index": { "type": "integer", "minimum": 0 },
+          "action_id": { "type": "string", "pattern": "^action(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" }
+        }
+      }
+    },
+    "passive_ability_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^passive(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" }
+    },
     "starting_quests": {
       "type": "array",
       "items": {
@@ -112,5 +158,17 @@
     "extra": { "type": "object", "additionalProperties": true },
     "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
     "_source": { "$ref": "common.schema.json#/$defs/source" }
+  },
+  "$defs": {
+    "weaponProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_damage", "maximum_damage", "speed_ms"],
+      "properties": {
+        "minimum_damage": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "maximum_damage": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "speed_ms": { "$ref": "common.schema.json#/$defs/scriptDecimal" }
+      }
+    }
   }
 }

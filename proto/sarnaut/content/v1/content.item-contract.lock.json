@@ -6,6 +6,11 @@
         "number": 3,
         "type": "string"
       },
+      "curse_eligible": {
+        "label": "singular",
+        "number": 10,
+        "type": "bool"
+      },
       "description_key": {
         "label": "singular",
         "number": 9,

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/native-action.schema.json",
+  "title": "SarnautCore native runtime action",
+  "description": "One source-free runtime action. Source spell paths and source-format type names are provenance only and never enter this contract.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_type", "target_policy", "range_m", "cast_duration_ms", "channel_duration_ms", "prepare_duration_ms", "requires_los", "is_aggro", "triggers_gcd", "ignores_gcd", "caster_conditions", "target_impacts", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^action(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "target_policy": { "enum": ["self", "current-target", "point"] },
+    "range_m": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+    "cast_duration_ms": { "type": "integer", "minimum": 0 },
+    "channel_duration_ms": { "type": "integer", "minimum": 0 },
+    "prepare_duration_ms": { "type": "integer", "minimum": 0 },
+    "requires_los": { "type": "boolean" },
+    "is_aggro": { "type": "boolean" },
+    "triggers_gcd": { "type": "boolean" },
+    "ignores_gcd": { "type": "boolean" },
+    "action_group_id": { "$ref": "common.schema.json#/$defs/canonicalId" },
+    "cooldown": {
+      "description": "Presence distinguishes no authored cooldown from an authored zero duration.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["duration_ms"],
+      "properties": {
+        "base": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "group_id": { "$ref": "common.schema.json#/$defs/canonicalId" },
+        "scaler": { "$ref": "common.schema.json#/$defs/slug" }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "cost", "scale_by_weapon_speed", "source"],
+      "properties": {
+        "kind": { "$ref": "common.schema.json#/$defs/slug" },
+        "cost": { "$ref": "common.schema.json#/$defs/scriptDecimal" },
+        "scale_by_weapon_speed": { "type": "boolean" },
+        "source": { "$ref": "common.schema.json#/$defs/slug" }
+      }
+    },
+    "caster_conditions": {
+      "description": "Ordered admission predicates evaluated against the caster.",
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/scriptNode" }
+    },
+    "target_impacts": {
+      "description": "Ordered impact program evaluated against the selected target.",
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/scriptNode" }
+    },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  }
+}

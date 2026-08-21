@@ -1,0 +1,20 @@
+schema_version: 1
+id: action.demo.strike
+source_type: demo.NativeAction
+target_policy: current-target
+range_m: { mantissa: 5, scale: 0 }
+cast_duration_ms: 0
+channel_duration_ms: 0
+prepare_duration_ms: 0
+requires_los: true
+is_aggro: true
+triggers_gcd: true
+ignores_gcd: false
+caster_conditions: []
+cooldown: { duration_ms: 0 }
+target_impacts: []
+_source:
+  path: Demo/Action.xdb
+  blake3: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  extractor: sarnaut-extract@0.1.0
+  source_root: demo

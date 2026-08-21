@@ -1,0 +1,19 @@
+schema_version: 1
+id: action.demo.broken
+source_type: demo.NativeAction
+target_policy: self
+range_m: { mantissa: 0, scale: 0 }
+cast_duration_ms: 0
+channel_duration_ms: 0
+prepare_duration_ms: 0
+requires_los: false
+is_aggro: false
+triggers_gcd: false
+ignores_gcd: false
+caster_conditions: []
+target_impacts: []
+unexpected: true
+_source:
+  path: Demo/Broken.xdb
+  blake3: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  extractor: sarnaut-extract@0.1.0

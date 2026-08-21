@@ -25,7 +25,9 @@
       "ROW_TYPE_LEVEL_CURVE": 14,
       "ROW_TYPE_QUEST_SCRIPT": 15,
       "ROW_TYPE_SCRIPT_TRIGGER": 16,
-      "ROW_TYPE_MAP_LOCATOR": 17
+      "ROW_TYPE_MAP_LOCATOR": 17,
+      "ROW_TYPE_NATIVE_ACTION": 18,
+      "ROW_TYPE_PLAYER_PROGRESSION": 19
     }
   },
   "messages": {
