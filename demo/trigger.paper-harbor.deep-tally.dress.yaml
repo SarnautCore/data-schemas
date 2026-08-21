@@ -1,0 +1,89 @@
+schema_version: 1
+id: trigger.paper-harbor.deep-tally.dress
+zone: zone.paper-harbor
+source_type: demo.TriggerResource
+root:
+  key: trigger.paper-harbor.deep-tally.dress
+  family: trigger
+  opcode: TriggerResource
+  tier: implemented
+  fields:
+    - name: effects
+      value:
+        list:
+          - node:
+              key: trigger.paper-harbor.deep-tally.dress/effects[0]
+              family: effect
+              opcode: EquipTrigger
+              tier: implemented
+              fields:
+                - name: effects
+                  value:
+                    list:
+                      - node:
+                          key: trigger.paper-harbor.deep-tally.dress/effects[0]/effects[0]
+                          family: effect
+                          opcode: Switch
+                          tier: implemented
+                          fields:
+                            - name: impactsOff
+                              value:
+                                list:
+                                  - node:
+                                      key: trigger.paper-harbor.deep-tally.dress/effects[0]/effects[0]/impactsOff[0]
+                                      family: impact
+                                      opcode: ImpactClientData
+                                      tier: inert-and-counted
+                            - name: impactsOn
+                              value:
+                                list:
+                                  - node:
+                                      key: trigger.paper-harbor.deep-tally.dress/effects[0]/effects[0]/impactsOn[0]
+                                      family: impact
+                                      opcode: ImpactIncreaseQuestCount
+                                      tier: implemented
+                                      fields:
+                                        - name: id
+                                          value:
+                                            reference:
+                                              id: questcount.paper-harbor.deep-tally.count-id-1
+                                              row_type: quest-count-id
+                                              href: Demo/World/Quests/PaperHarbor/DeepTally/CountId_1.xdb#count
+                - name: slot
+                  value: {text: MAINHAND}
+          - node:
+              key: trigger.paper-harbor.deep-tally.dress/effects[1]
+              family: effect
+              opcode: EquipTrigger
+              tier: implemented
+              fields:
+                - name: effects
+                  value:
+                    list:
+                      - node:
+                          key: trigger.paper-harbor.deep-tally.dress/effects[1]/effects[0]
+                          family: effect
+                          opcode: Switch
+                          tier: implemented
+                          fields:
+                            - name: impactsOn
+                              value:
+                                list:
+                                  - node:
+                                      key: trigger.paper-harbor.deep-tally.dress/effects[1]/effects[0]/impactsOn[0]
+                                      family: impact
+                                      opcode: ImpactIncreaseQuestCount
+                                      tier: implemented
+                                      fields:
+                                        - name: id
+                                          value:
+                                            reference:
+                                              id: questcount.paper-harbor.deep-tally.count-id-1
+                                              row_type: quest-count-id
+                                              href: Demo/World/Quests/PaperHarbor/DeepTally/CountId_1.xdb#count
+                - name: slot
+                  value: {text: TWOHANDED}
+_source:
+  path: Demo/World/Quests/PaperHarbor/DeepTally/DressTrigger.xdb
+  blake3: "b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2"
+  extractor: sarnaut-extract@0.1.0-demo

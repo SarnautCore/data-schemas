@@ -26,6 +26,11 @@ jobs:
       - name: Install pinned validator
         run: python -m pip install --disable-pip-version-check -r scripts/requirements.txt
 
+      - name: Install protobuf compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes protobuf-compiler
+
       # Every step below runs against the checked-out tree alone. The schema
       # registry is built from schemas/ and its retriever refuses to fetch, so
       # https://schemas.sarnautcore.org/ stays an identifier namespace and a
@@ -36,11 +41,17 @@ jobs:
       - name: Validate demo documents
         run: python scripts/validate_demo.py
 
+      - name: Check recursive script row invariants
+        run: python scripts/check_script_contract.py
+
       - name: Check the demo reference graph
         run: python scripts/check_references.py
 
       - name: Run negative fixtures
         run: python scripts/check_negative.py
+
+      - name: Compile and lock the protobuf contract
+        run: python scripts/check_proto_contract.py
 
       - name: Check for private data
         run: python scripts/check_no_private_data.py

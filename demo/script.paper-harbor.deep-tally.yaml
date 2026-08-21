@@ -1,0 +1,75 @@
+schema_version: 1
+id: script.paper-harbor.deep-tally
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+counters:
+  - count_id: questcount.paper-harbor.deep-tally.count-id-1
+    objective: 0
+    objective_id: quest.paper-harbor.deep-tally.objective.c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1
+    href: Demo/World/Quests/PaperHarbor/DeepTally/CountId_1.xdb#count
+start_impacts:
+  - key: script.paper-harbor.deep-tally/startImpacts[0]
+    family: impact
+    opcode: ImpactsDeferred
+    tier: implemented
+    fields:
+      - name: delay
+        value: {duration_ms: 25}
+      - name: impacts
+        value:
+          list:
+            - node:
+                key: script.paper-harbor.deep-tally/startImpacts[0]/impacts[0]
+                family: impact
+                opcode: ImpactIfTarget
+                tier: implemented
+                fields:
+                  - name: impactsIf
+                    value:
+                      list:
+                        - node:
+                            key: script.paper-harbor.deep-tally/startImpacts[0]/impacts[0]/impactsIf[0]
+                            family: impact
+                            opcode: ImpactClientData
+                            tier: inert-and-counted
+                            fields:
+                              - name: payload
+                                value: {text: deep-tally-ready}
+                  - name: predicate
+                    value:
+                      node:
+                        key: script.paper-harbor.deep-tally/startImpacts[0]/impacts[0]/predicate
+                        family: predicate
+                        opcode: PredicateHasItem
+                        tier: implemented
+                        fields:
+                          - name: item
+                            value:
+                              reference:
+                                id: item.consumable.harbor-tonic
+                                row_type: item
+                                href: /Demo/Items/Consumable/HarborTonic.xdb#item
+            # The schema must preserve an opcode no compiler knows. Its tier,
+            # rather than an allow-list, determines that it is safe to retain.
+            - node:
+                key: script.paper-harbor.deep-tally/startImpacts[0]/impacts[1]
+                family: impact
+                opcode: DemoPresentationPulse
+                tier: inert-and-counted
+trigger_agents:
+  - key: script.paper-harbor.deep-tally/triggerAgents[0]
+    family: trigger
+    opcode: TriggerAgentSelf
+    tier: implemented
+    fields:
+      - name: trigger
+        value:
+          reference:
+            id: trigger.paper-harbor.deep-tally.dress
+            row_type: trigger
+            href: /Demo/World/Quests/PaperHarbor/DeepTally/DressTrigger.xdb#trigger
+_source:
+  path: Demo/World/Quests/PaperHarbor/DeepTally.xdb
+  blake3: "b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1"
+  extractor: sarnaut-extract@0.1.0-demo

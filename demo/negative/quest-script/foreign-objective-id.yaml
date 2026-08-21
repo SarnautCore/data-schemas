@@ -1,0 +1,14 @@
+# Rejected by the row invariant check: a binding cannot name another quest's objective.
+schema_version: 1
+id: script.paper-harbor.foreign-objective-id
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+counters:
+  - count_id: questcount.paper-harbor.deep-tally.count-id-1
+    objective: 0
+    objective_id: quest.paper-harbor.tide-tally.objective.c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1
+_source:
+  path: Demo/Negative/QuestScript.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

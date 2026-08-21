@@ -1,0 +1,15 @@
+# Rejected: unexpected_field is not part of the quest-script document.
+schema_version: 1
+id: script.paper-harbor.negative-fixture
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+counters:
+  - count_id: questcount.paper-harbor.deep-tally.count-id-1
+    objective: 0
+    objective_id: quest.paper-harbor.deep-tally.objective.c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1
+unexpected_field: true
+_source:
+  path: Demo/Negative/QuestScript.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

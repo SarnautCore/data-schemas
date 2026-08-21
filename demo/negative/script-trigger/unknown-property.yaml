@@ -1,0 +1,15 @@
+# Rejected: unexpected_field is not part of the shared-trigger document.
+schema_version: 1
+id: trigger.paper-harbor.negative-fixture
+zone: zone.paper-harbor
+source_type: demo.TriggerResource
+root:
+  key: trigger.paper-harbor.negative-fixture
+  family: trigger
+  opcode: TriggerResource
+  tier: inert-and-counted
+unexpected_field: true
+_source:
+  path: Demo/Negative/Trigger.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo

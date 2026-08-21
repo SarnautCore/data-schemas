@@ -4,7 +4,7 @@ invariants JSON Schema cannot express.
 
 What counts as a reference
 --------------------------
-* A ``{id, href}`` resource ref that carries an ``id``. ``href`` alone means the
+* A resource ref that carries an ``id``. ``href`` alone means the
   extractor has not mapped that source path to a canonical id yet; those are
   counted and printed, not failed, because an unmapped ref is honest about
   coverage while a wrong id is a lie.
@@ -36,14 +36,16 @@ from typing import Any, Iterator
 from _common import Document, demo_documents
 
 # Fields whose string value is a canonical id pointing at another document.
-REF_STRING_FIELDS = frozenset({"faction", "item_id", "route", "zone", "zone_id"})
+REF_STRING_FIELDS = frozenset({"faction", "item_id", "quest", "route", "zone", "zone_id"})
 
 # Fields whose value is a list of canonical ids.
 REF_LIST_FIELDS = frozenset({"prototype_chain", "starting_abilities", "starting_quests"})
 
 
 def _is_resource_ref(node: Any) -> bool:
-    return isinstance(node, dict) and "href" in node and set(node) <= {"id", "href"}
+    if not isinstance(node, dict) or not set(node) <= {"id", "row_type", "href"}:
+        return False
+    return "href" in node or "row_type" in node or set(node) == {"id"}
 
 
 def _iter_loc_keys(node: Any, pointer: str) -> Iterator[tuple[str, str]]:
@@ -197,6 +199,27 @@ def main() -> int:
             continue
         by_id[doc_id] = document
 
+    # QuestCountId records are embedded as counter bindings in M3-09's
+    # QuestScript rows. They are valid ContentRef targets even though this
+    # schema version has no standalone quest-count-id document.
+    known_ids = set(by_id)
+    count_owners: dict[str, Document] = {}
+    for document in documents:
+        data = document.data
+        if not isinstance(data, dict) or not (document.doc_id or "").startswith("script."):
+            continue
+        for binding in data.get("counters") or []:
+            if not isinstance(binding, dict) or not isinstance(binding.get("count_id"), str):
+                continue
+            count_id = binding["count_id"]
+            if count_id in count_owners:
+                problems.append(
+                    f"{document.rel}: count id {count_id!r} is already declared by "
+                    f"{count_owners[count_id].rel}"
+                )
+            count_owners[count_id] = document
+            known_ids.add(count_id)
+
     locale_keys: set[str] = set()
     for document in documents:
         if (document.doc_id or "").startswith("locale.") and isinstance(document.data, dict):
@@ -217,7 +240,7 @@ def main() -> int:
         edges += len(doc_refs) + len(loc_refs)
 
         for pointer, target in doc_refs:
-            if target not in by_id:
+            if target not in known_ids:
                 dangling.append(f"{document.rel}: {pointer}: no document has id {target!r}")
         for pointer, key in loc_refs:
             if key not in locale_keys:

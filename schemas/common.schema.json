@@ -101,6 +101,99 @@
         "stat": { "type": "string", "minLength": 1 },
         "value": { "type": "number" }
       }
+    },
+    "scriptDecimal": {
+      "description": "An exact signed mantissa and base-10 scale. The value is mantissa * 10^-scale; script decimals never cross the pack boundary as binary floating point.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mantissa", "scale"],
+      "properties": {
+        "mantissa": {
+          "type": "integer",
+          "minimum": -9223372036854775808,
+          "maximum": 9223372036854775807
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        }
+      }
+    },
+    "scriptReference": {
+      "description": "A resolved script reference. id and row_type become ContentRef in the compiled pack. href is private YAML provenance and the pack compiler drops it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/canonicalId" },
+        "row_type": { "$ref": "#/$defs/slug" },
+        "href": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scriptValue": {
+      "description": "One member of the ScriptValue union. The one-property limit makes zero-member and multi-member values schema errors before pack compilation.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "integer": {
+          "type": "integer",
+          "minimum": -9223372036854775808,
+          "maximum": 9223372036854775807
+        },
+        "decimal": { "$ref": "#/$defs/scriptDecimal" },
+        "boolean": { "type": "boolean" },
+        "text": { "type": "string" },
+        "reference": { "$ref": "#/$defs/scriptReference" },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "node": { "$ref": "#/$defs/scriptNode" },
+        "list": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/scriptValue" }
+        }
+      }
+    },
+    "scriptField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "value": { "$ref": "#/$defs/scriptValue" }
+      }
+    },
+    "scriptNode": {
+      "description": "ADR 0036's recursive script node. Fields are bytewise-sorted by name and node keys are unique within their row; scripts/check_script_contract.py enforces those cross-item rules.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "family", "opcode", "tier"],
+      "properties": {
+        "key": { "type": "string", "minLength": 1 },
+        "family": {
+          "enum": [
+            "impact",
+            "predicate",
+            "effect",
+            "addresseeFinder",
+            "scaler",
+            "calcer",
+            "basic",
+            "trigger"
+          ]
+        },
+        "opcode": { "type": "string", "minLength": 1 },
+        "tier": { "enum": ["implemented", "inert-and-counted", "refused"] },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/scriptField" }
+        }
+      }
     }
   }
 }

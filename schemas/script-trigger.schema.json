@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sarnautcore.org/script-trigger.schema.json",
+  "title": "SarnautCore shared script trigger",
+  "description": "One TriggerResource tree shared by reference from quest trigger agents and attach-trigger impacts.",
+  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "zone", "source_type", "root", "_source"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": {
+      "type": "string",
+      "pattern": "^trigger(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*){2,}$"
+    },
+    "zone": { "$ref": "common.schema.json#/$defs/zoneId" },
+    "source_type": { "type": "string", "minLength": 1 },
+    "resource_id": { "type": "integer", "minimum": 0 },
+    "root": {
+      "allOf": [
+        { "$ref": "common.schema.json#/$defs/scriptNode" },
+        {
+          "type": "object",
+          "properties": {
+            "family": { "const": "trigger" },
+            "opcode": { "const": "TriggerResource" }
+          }
+        }
+      ]
+    },
+    "extra": { "type": "object", "additionalProperties": true },
+    "curation_note": { "$ref": "common.schema.json#/$defs/curationNote" },
+    "_source": { "$ref": "common.schema.json#/$defs/source" }
+  }
+}

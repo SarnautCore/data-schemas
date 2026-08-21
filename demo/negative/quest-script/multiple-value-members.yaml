@@ -1,0 +1,20 @@
+# Rejected: ScriptValue mirrors a protobuf oneof and must set one member.
+schema_version: 1
+id: script.paper-harbor.multiple-value-members
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+start_impacts:
+  - key: script.paper-harbor.multiple-value-members/startImpacts[0]
+    family: impact
+    opcode: DemoImpact
+    tier: inert-and-counted
+    fields:
+      - name: broken
+        value:
+          integer: 1
+          text: one
+_source:
+  path: Demo/Negative/QuestScript.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo
