@@ -20,7 +20,8 @@ finisher:
   id: mob.paper-harbor.harbor-quartermaster
   href: /Demo/Creatures/HarborQuartermaster.xdb#mob
 objectives:
-  - kind: quest-count-kill
+  - objective_id: quest.paper-harbor.harbor-vigil.objective.2222222222222222222222222222222222222222222222222222222222222222
+    kind: quest-count-kill
     loc_ref: HarborVigil.Counter.txt
     limit: 1
     internal: false

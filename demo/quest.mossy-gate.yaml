@@ -23,7 +23,8 @@ objectives:
   # `quest-count-kill` is one of the three kinds mechanics/quests.md rule 5.5
   # defines. The kind vocabulary is closed: a slug outside it is a compile
   # error rather than a row the shard has to guess at.
-  - kind: quest-count-kill
+  - objective_id: quest.paper-harbor.mossy-gate.objective.4444444444444444444444444444444444444444444444444444444444444444
+    kind: quest-count-kill
     loc_ref: MossyGate.Counter.txt
     limit: 3
     internal: false

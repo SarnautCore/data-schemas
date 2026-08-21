@@ -70,6 +70,26 @@ error; the schema cannot tell an overlay document from a base one, so it allows
 the field everywhere and `sarnaut-pack` enforces the requirement where it
 applies.
 
+### Stable quest objective ids
+
+Every quest objective carries `objective_id` in the form
+`<quest-id>.objective.<64 lowercase BLAKE3 hex characters>`. The extractor does
+not use the objective's array index. It hashes a sequence of UTF-8 components,
+each prefixed by its byte length as an unsigned 64-bit little-endian integer:
+
+1. `sarnaut.quest-objective.v1`, the quest id, and the objective kind;
+2. `source-id` and the normalized `QuestCountId` href when the counter has one;
+3. otherwise `semantic`, the normalized custom-name href, and the sorted,
+   deduplicated normalized target ids or hrefs.
+
+Reference normalization trims whitespace, changes backslashes to slashes,
+removes the fragment after `#`, removes leading slashes, and lowercases ASCII.
+Limits, `internal`, `show_count`, and unknown extension fields do not enter the
+identity. Reordering objectives or changing those mutable properties therefore
+does not orphan saved progress. Two objectives with the same derived id are an
+error; the source must give them distinct `QuestCountId` resources or curation
+must assign distinct ids.
+
 `ability.schema.json` is deliberately minimal. It exists because
 [ADR 0032](https://github.com/SarnautCore/docs/blob/main/adr/0032-character-creation.md)
 puts `starting_abilities` on the chargen document and requires those ids to resolve.
