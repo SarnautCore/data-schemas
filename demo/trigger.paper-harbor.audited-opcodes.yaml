@@ -28,8 +28,8 @@ root:
                         - name: map
                           value:
                             reference:
-                              id: zone.paper-harbor
-                              row_type: map-resource
+                              id: paper-harbor
+                              row_type: map
                         - name: scriptID
                           value: {text: Arrival}
                 - name: yaw

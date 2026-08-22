@@ -122,6 +122,42 @@ def check_loot_node(node: Any, pointer: str, problems: list[str], rel: str, dept
     return depth - 1
 
 
+def counter_binding_invariant_errors(
+    document: Document, by_id: dict[str, Document]
+) -> list[str]:
+    data = document.data
+    if not isinstance(data, dict) or not (document.doc_id or "").startswith("script."):
+        return []
+    quest = by_id.get(data.get("quest"))
+    if quest is None or not isinstance(quest.data, dict):
+        return []
+    objectives = quest.data.get("objectives") or []
+    errors: list[str] = []
+    for position, binding in enumerate(data.get("counters") or []):
+        if not isinstance(binding, dict):
+            continue
+        index = binding.get("objective")
+        if (
+            not isinstance(index, int)
+            or isinstance(index, bool)
+            or not 0 <= index < len(objectives)
+        ):
+            errors.append(
+                f"/counters/{position}/objective: {index!r} is outside quest "
+                f"{quest.doc_id!r}, which has {len(objectives)} objectives"
+            )
+            continue
+        objective = objectives[index]
+        expected = objective.get("objective_id") if isinstance(objective, dict) else None
+        objective_id = binding.get("objective_id")
+        if isinstance(expected, str) and objective_id != expected:
+            errors.append(
+                f"/counters/{position}/objective_id {objective_id!r} does not match "
+                f"quest objective {index} id {expected!r}"
+            )
+    return errors
+
+
 def check_invariants(documents: list[Document], by_id: dict[str, Document]) -> list[str]:
     problems: list[str] = []
     zone_maps: dict[str, set[str]] = {}
@@ -172,6 +208,10 @@ def check_invariants(documents: list[Document], by_id: dict[str, Document]) -> l
         problems.extend(
             f"{document.rel}: {error}" for error in placement_invariant_errors(document)
         )
+        problems.extend(
+            f"{document.rel}: {error}"
+            for error in counter_binding_invariant_errors(document, by_id)
+        )
         if data.get("kind") == "placements" and isinstance(data.get("map_resource"), str):
             for locator in data.get("locators") or []:
                 if not isinstance(locator, dict) or not isinstance(locator.get("script_id"), str):
@@ -194,7 +234,6 @@ def check_invariants(documents: list[Document], by_id: dict[str, Document]) -> l
             if slug not in zone_maps[zone]:
                 problems.append(f"{document.rel}: map {slug!r} is not one of {zone}'s maps")
 
-    _ = by_id
     return problems
 
 

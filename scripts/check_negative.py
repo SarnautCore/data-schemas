@@ -15,18 +15,25 @@ import sys
 
 from _common import (
     SHARED_SCHEMAS,
+    demo_documents,
     load_schemas,
     negative_fixtures,
     validators,
 )
 from _placement_contract import placement_invariant_errors
 from _script_contract import script_invariant_errors
+from check_references import counter_binding_invariant_errors
 
 REQUIRED_FIXTURES = ("unknown-property", "malformed-id")
 
 
 def main() -> int:
     compiled = validators()
+    by_id = {
+        document.doc_id: document
+        for document in demo_documents()
+        if document.doc_id is not None
+    }
     failures: list[str] = []
     seen: dict[str, set[str]] = {}
     count = 0
@@ -42,6 +49,7 @@ def main() -> int:
         if not schema_errors:
             invariant_errors.extend(script_invariant_errors(fixture))
             invariant_errors.extend(placement_invariant_errors(fixture))
+            invariant_errors.extend(counter_binding_invariant_errors(fixture, by_id))
         if schema_errors:
             print(
                 f"ok   {fixture.rel}  rejected by {stem}.schema.json: "
