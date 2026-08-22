@@ -57,8 +57,8 @@ def _audited_opcode_errors(node: dict[str, Any], pointer: str) -> list[str]:
                 errors.append(f"{pointer}/fields/locator: expected MapPointer<Locator>")
             map_value = locator_fields.get("map")
             map_ref = map_value.get("reference") if _value_is(map_value, "reference") else None
-            if not isinstance(map_ref, dict) or map_ref.get("row_type") != "map-resource":
-                errors.append(f"{pointer}/fields/locator/map: expected map-resource reference")
+            if not isinstance(map_ref, dict) or map_ref.get("row_type") != "map":
+                errors.append(f"{pointer}/fields/locator/map: expected map reference")
             script_id = locator_fields.get("scriptID")
             if not _value_is(script_id, "text") or not script_id.get("text"):
                 errors.append(f"{pointer}/fields/locator/scriptID: expected nonempty text")

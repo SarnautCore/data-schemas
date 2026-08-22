@@ -6,7 +6,7 @@ source_type: demo.QuestResource
 counters:
   - count_id: questcount.paper-harbor.deep-tally.count-id-1
     objective: 0
-    objective_id: quest.paper-harbor.deep-tally.objective.c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1
+    objective_id: quest.paper-harbor.deep-tally.objective.1111111111111111111111111111111111111111111111111111111111111111
     href: Demo/World/Quests/PaperHarbor/DeepTally/CountId_1.xdb#count
 start_impacts:
   - key: script.paper-harbor.deep-tally/startImpacts[0]

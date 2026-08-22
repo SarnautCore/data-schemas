@@ -1,0 +1,15 @@
+# Rejected by the reference contract: the durable objective id and its positional
+# compatibility index must identify the same objective on the owning quest.
+schema_version: 1
+id: script.paper-harbor.objective-index-out-of-range
+zone: zone.paper-harbor
+quest: quest.paper-harbor.deep-tally
+source_type: demo.QuestResource
+counters:
+  - count_id: questcount.paper-harbor.deep-tally.count-id-1
+    objective: 1
+    objective_id: quest.paper-harbor.deep-tally.objective.1111111111111111111111111111111111111111111111111111111111111111
+_source:
+  path: Demo/Negative/QuestScript.xdb
+  blake3: "0000000000000000000000000000000000000000000000000000000000000000"
+  extractor: sarnaut-extract@0.1.0-demo
