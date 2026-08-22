@@ -1,0 +1,11 @@
+schema_version: 1
+id: item.bags.partial-layout
+category: bags
+source_type: demo.ItemResource
+capacity: 18
+bag_layout_id: bag.layout.18
+_source:
+  path: Demo/Negative/Items/PartialBagLayout.xdb
+  blake3: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

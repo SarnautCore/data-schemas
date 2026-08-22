@@ -3,7 +3,33 @@
   "$id": "https://schemas.sarnautcore.org/item.schema.json",
   "title": "SarnautCore item",
   "description": "An item definition. Items are a ruleset-global resource: they carry no zone.",
-  "allOf": [{ "$ref": "common.schema.json#/$defs/base" }],
+  "allOf": [
+    { "$ref": "common.schema.json#/$defs/base" },
+    {
+      "if": {
+        "anyOf": [
+          { "required": ["bag_layout_id"] },
+          { "required": ["bag_partition_sizes"] }
+        ]
+      },
+      "then": {
+        "required": ["bag_layout_id", "bag_partition_sizes", "capacity"],
+        "properties": { "category": { "const": "bags" } },
+        "oneOf": [
+          { "properties": { "bag_layout_id": { "const": "bag.layout.12" }, "capacity": { "const": 12 }, "bag_partition_sizes": { "const": [12] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.16" }, "capacity": { "const": 16 }, "bag_partition_sizes": { "const": [16] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.18" }, "capacity": { "const": 18 }, "bag_partition_sizes": { "const": [12, 6] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.24" }, "capacity": { "const": 24 }, "bag_partition_sizes": { "const": [16, 8] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.30" }, "capacity": { "const": 30 }, "bag_partition_sizes": { "const": [30] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.36" }, "capacity": { "const": 36 }, "bag_partition_sizes": { "const": [8, 8, 8, 6, 6] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.42" }, "capacity": { "const": 42 }, "bag_partition_sizes": { "const": [30, 12] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.48" }, "capacity": { "const": 48 }, "bag_partition_sizes": { "const": [12, 12, 12, 12] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.54" }, "capacity": { "const": 54 }, "bag_partition_sizes": { "const": [30, 12, 12] } } },
+          { "properties": { "bag_layout_id": { "const": "bag.layout.60" }, "capacity": { "const": 60 }, "bag_partition_sizes": { "const": [30, 30] } } }
+        ]
+      }
+    }
+  ],
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "id", "category", "source_type", "_source"],
@@ -63,7 +89,20 @@
       },
       "minProperties": 1
     },
-    "capacity": { "type": "integer", "minimum": 0 },
+    "capacity": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+    "bag_layout_id": {
+      "type": "string",
+      "enum": [
+        "bag.layout.12", "bag.layout.16", "bag.layout.18", "bag.layout.24", "bag.layout.30",
+        "bag.layout.36", "bag.layout.42", "bag.layout.48", "bag.layout.54", "bag.layout.60"
+      ]
+    },
+    "bag_partition_sizes": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 1, "maximum": 60 },
+      "minItems": 1,
+      "maxItems": 5
+    },
     "spell_ref": { "type": "string" },
     "flags": {
       "type": "object",

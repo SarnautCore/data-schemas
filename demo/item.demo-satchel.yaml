@@ -1,0 +1,12 @@
+schema_version: 1
+id: item.bags.demo-satchel
+category: bags
+source_type: demo.ItemResource
+capacity: 18
+bag_layout_id: bag.layout.18
+bag_partition_sizes: [12, 6]
+_source:
+  path: Demo/Items/Bags/DemoSatchel.xdb
+  blake3: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  extractor: sarnaut-extract@0.1.0-demo
+  source_root: demo-server

@@ -1,6 +1,21 @@
 {
   "messages": {
     "Item": {
+      "bag_capacity": {
+        "label": "singular",
+        "number": 12,
+        "type": "uint32"
+      },
+      "bag_layout_id": {
+        "label": "singular",
+        "number": 11,
+        "type": "string"
+      },
+      "bag_partition_sizes": {
+        "label": "repeated",
+        "number": 13,
+        "type": "uint32"
+      },
       "category": {
         "label": "singular",
         "number": 3,
